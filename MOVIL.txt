@@ -1,0 +1,5 @@
+CORRECCIÓN MÓVIL
+================
+La portada ahora usa el viewport real del teléfono y muestra la imagen completa sin recortarla.
+En pantallas estrechas se mantiene la portada completa centrada y se usa una versión desenfocada de fondo para llenar el espacio vertical.
+El botón visual está integrado en la propia portada y el área de clic permanece activa.
