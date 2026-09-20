@@ -1,0 +1,21 @@
+AMOR EN CARNAVAL — AVENTURA INTERACTIVA
+
+Esta versión corrige el problema de la pantalla oscura: cada página tiene un lienzo
+vertical con altura real (proporción 2:3), por lo que la ilustración nunca queda
+dentro de un contenedor de altura cero.
+
+Incluye:
+- Diseño infantil moderno tipo "aventura".
+- Las 8 escenas, con página 2 reconstruida.
+- 3 estrellas interactivas por escena (24 en total).
+- Insignias por progreso.
+- Botones de pistas, vocabulario y magia.
+- Efectos de partículas y confeti.
+- Lectura en voz alta mediante la función de voz del navegador.
+- Pantalla completa.
+- Navegación por miniaturas y teclado.
+- Responsive para computadora, tablet y móvil.
+- Respeta la opción "reducir movimiento" del sistema.
+
+Para usarla: abre index.html en un navegador moderno.
+No necesita servidor ni conexión a internet para funcionar.
