@@ -4,48 +4,383 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#17142a">
-<title>Amor en Carnaval — Aventura Interactiva</title>
+<title>Amor en Carnaval — Aventura Interactiva Deluxe</title>
 <style>
-:root{--ink:#211d3b;--cream:#fff9ef;--paper:#fffdf8;--purple:#6d4cff;--pink:#ff5f9e;--yellow:#ffd75e;--cyan:#54d9ff;--green:#5bd69b;--shadow:0 20px 60px rgba(35,24,70,.18)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif;background:radial-gradient(circle at 10% 10%,#ffd75e44,transparent 24rem),radial-gradient(circle at 90% 15%,#54d9ff3d,transparent 26rem),linear-gradient(180deg,#fffaf0 0%,#f7f0ff 48%,#eefbff 100%);overflow-x:hidden}button{font:inherit}button:focus-visible{outline:4px solid var(--cyan);outline-offset:3px}
-.bubbles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:-1}.bubbles i{position:absolute;border-radius:50%;opacity:.32;animation:float 10s ease-in-out infinite}.bubbles i:nth-child(1){width:90px;height:90px;background:var(--pink);left:4%;top:22%}.bubbles i:nth-child(2){width:55px;height:55px;background:var(--cyan);right:8%;top:38%;animation-delay:-3s}.bubbles i:nth-child(3){width:120px;height:120px;background:var(--yellow);right:15%;bottom:8%;animation-delay:-6s}@keyframes float{50%{transform:translate(18px,-24px) rotate(12deg)}}
-/* PORTADA: portada cinematográfica con imagen 3D estilo película animada */
-.cover{min-height:100vh;display:grid;place-items:center;position:relative;overflow:hidden;padding:0;background:#111}.cover:before{content:"";position:absolute;inset:-3%;background:url("portada-pixar.png") center center/cover no-repeat;animation:coverZoom 16s ease-in-out infinite alternate;filter:saturate(1.05)}.cover:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#00000008 0%,#00000000 48%,#00000018 100%);pointer-events:none}.cover-card{position:relative;z-index:2;width:100%;height:100vh;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;display:block}.cover-content{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;pointer-events:none}.cover .start{position:absolute;z-index:5;left:50%;bottom:18.5%;transform:translateX(-50%);width:min(560px,44vw);height:min(108px,8.3vw);min-height:64px;border:2px solid #ffd36b;border-radius:999px;background:linear-gradient(180deg,#cf3f38 0%,#9e2630 100%);color:#fff9ef;box-shadow:0 0 0 4px #5b2018aa,0 12px 30px #0006,0 0 28px #ffd75e88,inset 0 2px 0 #fff7;cursor:pointer;pointer-events:auto;font-family:Georgia,'Times New Roman',serif;font-weight:900;font-size:clamp(20px,2.5vw,34px);letter-spacing:.01em;text-shadow:0 2px 3px #4b1616;transition:transform .18s ease,box-shadow .18s ease;overflow:hidden}.cover .start:before{content:"✦";display:inline-block;margin-right:.45em;color:#ffd75e;text-shadow:0 0 12px #fff0a0;animation:buttonSpark 1.5s ease-in-out infinite}.cover .start:after{content:"";position:absolute;left:-25%;top:0;width:18%;height:100%;background:linear-gradient(90deg,transparent,#fff9 50%,transparent);transform:skewX(-20deg);animation:buttonSweep 3.2s ease-in-out infinite}.cover .start:hover{transform:translateX(-50%) translateY(-3px) scale(1.035);box-shadow:0 0 0 5px #5b2018aa,0 18px 34px #0007,0 0 38px #ffd75eb0,inset 0 2px 0 #fff7}.cover .start:active{transform:translateX(-50%) translateY(7px) scale(.94)}.cover .start.jump{animation:buttonJump .58s cubic-bezier(.2,.9,.3,1)}@keyframes buttonSpark{50%{transform:scale(1.25) rotate(8deg);opacity:.75}}@keyframes buttonSweep{0%,55%{left:-25%}100%{left:120%}}@keyframes buttonJump{0%{transform:translateX(-50%) scale(1)}35%{transform:translateX(-50%) translateY(-18px) scale(1.08)}62%{transform:translateX(-50%) translateY(5px) scale(.96)}100%{transform:translateX(-50%) translateY(0) scale(1)}}.cover .hint{display:none}.cover .kicker,.cover h1,.cover-copy{display:none}@keyframes coverZoom{from{transform:scale(1.01)}to{transform:scale(1.07)}}
+:root{
+  --ink:#211d3b;--cream:#fff9ef;--paper:#fffdf8;--purple:#6d4cff;
+  --pink:#ff5f9e;--yellow:#ffd75e;--cyan:#54d9ff;--green:#5bd69b;--orange:#ff8a3d;
+  --shadow:0 20px 60px rgba(35,24,70,.18);
+  --rainbow:linear-gradient(90deg,#ff5f9e,#ffd75e,#54d9ff,#6d4cff,#5bd69b);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--ink);
+  font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif;
+  background:radial-gradient(circle at 10% 10%,#ffd75e44,transparent 24rem),
+             radial-gradient(circle at 90% 15%,#54d9ff3d,transparent 26rem),
+             linear-gradient(180deg,#fffaf0 0%,#f7f0ff 48%,#eefbff 100%);
+  overflow-x:hidden;
+}
+button{font:inherit}
+button:focus-visible{outline:4px solid var(--cyan);outline-offset:3px}
+
+/* BURBUJAS DECORATIVAS DE FONDO */
+.bubbles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:-1}
+.bubbles i{position:absolute;border-radius:50%;opacity:.32;animation:float 10s ease-in-out infinite}
+.bubbles i:nth-child(1){width:90px;height:90px;background:var(--pink);left:4%;top:22%}
+.bubbles i:nth-child(2){width:55px;height:55px;background:var(--cyan);right:8%;top:38%;animation-delay:-3s}
+.bubbles i:nth-child(3){width:120px;height:120px;background:var(--yellow);right:15%;bottom:8%;animation-delay:-6s}
+@keyframes float{50%{transform:translate(18px,-24px) rotate(12deg)}}
+
+/* PORTADA */
+.cover{min-height:100vh;display:grid;place-items:center;position:relative;overflow:hidden;padding:0;background:#111}
+.cover:before{content:"";position:absolute;inset:-3%;background:url("portada-pixar.png") center center/cover no-repeat;animation:coverZoom 16s ease-in-out infinite alternate;filter:saturate(1.05)}
+.cover:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#00000008 0%,#00000000 48%,#00000018 100%);pointer-events:none}
+.cover-card{position:relative;z-index:2;width:100%;height:100vh;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;display:block}
+.cover-content{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;pointer-events:none}
+.cover .start{
+  position:absolute;z-index:5;left:50%;bottom:18.5%;transform:translateX(-50%);
+  width:min(560px,44vw);height:min(108px,8.3vw);min-height:64px;border:2px solid #ffd36b;
+  border-radius:999px;background:linear-gradient(180deg,#cf3f38 0%,#9e2630 100%);
+  color:#fff9ef;box-shadow:0 0 0 4px #5b2018aa,0 12px 30px #0006,0 0 28px #ffd75e88,inset 0 2px 0 #fff7;
+  cursor:pointer;pointer-events:auto;font-family:Georgia,'Times New Roman',serif;font-weight:900;
+  font-size:clamp(20px,2.5vw,34px);letter-spacing:.01em;text-shadow:0 2px 3px #4b1616;
+  transition:transform .18s ease,box-shadow .18s ease;overflow:hidden;
+}
+.cover .start:before{content:"✦";display:inline-block;margin-right:.45em;color:#ffd75e;text-shadow:0 0 12px #fff0a0;animation:buttonSpark 1.5s ease-in-out infinite}
+.cover .start:after{content:"";position:absolute;left:-25%;top:0;width:18%;height:100%;background:linear-gradient(90deg,transparent,#fff9 50%,transparent);transform:skewX(-20deg);animation:buttonSweep 3.2s ease-in-out infinite}
+.cover .start:hover{transform:translateX(-50%) translateY(-3px) scale(1.035);box-shadow:0 0 0 5px #5b2018aa,0 18px 34px #0007,0 0 38px #ffd75eb0,inset 0 2px 0 #fff7}
+.cover .start:active{transform:translateX(-50%) translateY(7px) scale(.94)}
+.cover .start.jump{animation:buttonJump .58s cubic-bezier(.2,.9,.3,1)}
+@keyframes buttonSpark{50%{transform:scale(1.25) rotate(8deg);opacity:.75}}
+@keyframes buttonSweep{0%,55%{left:-25%}100%{left:120%}}
+@keyframes buttonJump{0%{transform:translateX(-50%) scale(1)}35%{transform:translateX(-50%) translateY(-18px) scale(1.08)}62%{transform:translateX(-50%) translateY(5px) scale(.96)}100%{transform:translateX(-50%) translateY(0) scale(1)}}
+@keyframes coverZoom{from{transform:scale(1.01)}to{transform:scale(1.07)}}
+
 /* HISTORIETA */
-#aventura{display:none;width:min(1260px,100%);margin:auto;padding:22px 16px 90px}#aventura.open{display:block;animation:openReader .65s cubic-bezier(.2,.8,.2,1)}@keyframes openReader{from{opacity:0;transform:translateY(28px) scale(.985)}to{opacity:1;transform:none}}
-.hud{position:sticky;top:10px;z-index:20;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;margin-bottom:18px;padding:12px;border:2px solid #ffffffcc;border-radius:22px;background:#ffffffd9;backdrop-filter:blur(16px);box-shadow:0 12px 30px #211d3b12}.hud-title{font-weight:1000}.hud-sub{font-size:12px;font-weight:800;opacity:.6;margin-top:2px}.hud-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.pill{border:2px solid #211d3b16;background:#fff;color:var(--ink);padding:9px 12px;border-radius:999px;cursor:pointer;font-weight:900}.pill:hover{transform:translateY(-2px)}.progress{height:10px;background:#211d3b10;border-radius:99px;overflow:hidden;grid-column:1/-1}.progress i{display:block;height:100%;width:14.2857%;border-radius:99px;background:linear-gradient(90deg,var(--pink),var(--purple),var(--cyan));transition:.35s}
-.workspace{display:grid;grid-template-columns:188px minmax(0,1fr);gap:14px;align-items:start}.missions{position:sticky;top:102px;padding:12px;border-radius:28px;background:#ffffffd9;border:2px solid #ffffff;box-shadow:var(--shadow);backdrop-filter:blur(16px)}.missions h2{font-size:15px;margin:0 0 5px}.missions p{font-size:10.5px;line-height:1.35;font-weight:700;opacity:.65;margin:0 0 14px}.badge{display:flex;align-items:center;gap:7px;padding:8px;border-radius:13px;background:#f5f1ff;margin:8px 0;font-weight:900;font-size:12px}.badge span{font-size:18px}.badge.locked{filter:grayscale(1);opacity:.45}.stars{font-size:14px;letter-spacing:1px;margin:4px 0 8px;line-height:1}
-.reader{min-width:0}.scene{display:none}.scene.active{display:block;animation:enter .42s cubic-bezier(.2,.8,.2,1)}@keyframes enter{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}.story-card{background:#fff;border:2px solid #fff;border-radius:28px;box-shadow:var(--shadow);padding:12px;overflow:hidden}.scene-head{display:flex;align-items:end;justify-content:space-between;gap:12px;padding:4px 4px 12px}.scene-number{font-size:12px;font-weight:1000;color:var(--purple);text-transform:uppercase;letter-spacing:.1em}.scene-title{font-size:clamp(25px,4vw,43px);line-height:.95;font-weight:1000;margin-top:3px}.scene-tip{font-size:12px;max-width:290px;text-align:right;font-weight:800;opacity:.6}
-.page-canvas{position:relative;width:min(100%,900px);aspect-ratio:2/3;margin:0 auto;border-radius:24px;overflow:hidden;background:#ece8f6;box-shadow:0 22px 55px #211d3b25;touch-action:manipulation}.page-canvas img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;user-select:none;animation:cinema 10s ease-in-out infinite alternate;transform-origin:center center}.scene:nth-child(even) .page-canvas img{animation-name:cinema2}.page-canvas:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 45%,transparent 34%,#211d3b15 100%),linear-gradient(180deg,#ffffff00 72%,#211d3b20)}@keyframes cinema{0%{transform:scale(1.005) translate3d(-.25%,-.15%,0)}100%{transform:scale(1.025) translate3d(.25%,.15%,0)}}@keyframes cinema2{0%{transform:scale(1.02) translate3d(.2%,-.15%,0)}100%{transform:scale(1.005) translate3d(-.2%,.15%,0)}}
-.glow{position:absolute;z-index:2;width:35%;aspect-ratio:1;border-radius:50%;background:#ffd87524;filter:blur(20px);mix-blend-mode:screen;pointer-events:none;animation:glow 5s ease-in-out infinite}.glow.a{left:8%;top:10%}.glow.b{right:5%;bottom:8%;animation-delay:-2s}@keyframes glow{50%{transform:translate(30px,-15px) scale(1.2);opacity:.65}}.mist{position:absolute;z-index:2;inset:auto -20% 7% -20%;height:25%;background:linear-gradient(90deg,transparent,#fff2,transparent);filter:blur(18px);animation:mist 8s linear infinite;pointer-events:none}@keyframes mist{from{transform:translateX(-45%)}to{transform:translateX(45%)}}.particles{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}.particle{position:absolute;width:6px;height:9px;border-radius:70% 20%;background:#f1c35d;opacity:.6;animation:particle 5s linear infinite}@keyframes particle{from{transform:translate3d(0,-30px,0) rotate(0);opacity:0}15%{opacity:.7}to{transform:translate3d(var(--x),120% ,0) rotate(460deg);opacity:0}}
-.hotspot{position:absolute;z-index:6;width:15px;height:15px;border:0;border-radius:50%;display:grid;place-items:center;cursor:pointer;background:var(--yellow);color:var(--ink);box-shadow:0 0 0 2px #ffffffaa,0 4px 9px #211d3b30;animation:ping 1.8s ease-in-out infinite}.hotspot:hover{transform:scale(1.22)}.hotspot.found{background:var(--green);animation:none;transform:scale(.88)}.hotspot span{font-size:7px;line-height:1}@keyframes ping{50%{box-shadow:0 0 0 4px #ffffff55,0 4px 9px #211d3b30}}
-.glossary{margin:12px 0 2px;padding:10px 12px;border-radius:18px;background:linear-gradient(135deg,#24204f,#40356d);color:#fff;box-shadow:0 10px 24px #211d3b18}.glossary-title{text-align:center;font-family:Georgia,'Times New Roman',serif;font-size:15px;font-weight:900;margin-bottom:8px;color:#ffe7a3}.glossary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.word-chip{min-width:0;border:0;border-radius:11px;padding:8px 6px;background:#ffffff15;color:#fff;cursor:pointer;text-align:center}.word-chip strong{display:block;font-size:11px}.word-chip small{display:block;font-size:9px;opacity:.78;margin-top:2px}.word-chip:hover{background:#ffffff25;transform:translateY(-2px)}
-.interaction{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-top:12px}.action{border:0;border-radius:16px;padding:11px;background:#f7f4ff;color:var(--ink);cursor:pointer;font-weight:1000;font-size:12px}.action:hover{background:#eee8ff;transform:translateY(-2px)}.action.primary{background:var(--ink);color:#fff}.action.green{background:#e5fff2}.message{min-height:48px;display:grid;place-items:center;text-align:center;margin-top:10px;padding:10px 14px;border-radius:16px;background:#fff7d9;font-weight:900;font-size:13px}.nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}.nav button{border:0;border-radius:16px;padding:13px 18px;background:var(--ink);color:#fff;font-weight:1000;cursor:pointer}.nav button:disabled{opacity:.25;cursor:not-allowed}.count{font-weight:1000;color:var(--purple)}
-.scenes-strip{display:none}.thumb{flex:0 0 76px;aspect-ratio:2/3;border:3px solid transparent;padding:0;border-radius:14px;overflow:hidden;background:#fff;cursor:pointer;position:relative}.thumb img{width:100%;height:100%;object-fit:cover;display:block}.thumb.active{border-color:var(--purple);box-shadow:0 5px 15px #6d4cff2b}.thumb b{position:absolute;bottom:3px;left:3px;border-radius:99px;padding:2px 5px;background:#211d3bdd;color:#fff;font-size:9px}
-.modal{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:18px;background:#211d3bcc;backdrop-filter:blur(10px)}.modal.open{display:grid}.modal-card{width:min(520px,100%);background:#fff;border-radius:28px;padding:24px;box-shadow:0 30px 90px #0005;text-align:center}.modal-card h3{font-size:28px;margin:0 0 8px}.modal-card p{line-height:1.55;font-weight:700;opacity:.75}.close{border:0;background:var(--ink);color:#fff;border-radius:14px;padding:11px 18px;font-weight:1000;cursor:pointer}.toast{position:fixed;left:50%;bottom:22px;z-index:60;transform:translate(-50%,30px);opacity:0;padding:12px 18px;border-radius:999px;background:var(--ink);color:#fff;font-weight:1000;pointer-events:none;transition:.3s}.toast.show{transform:translate(-50%,0);opacity:1}.confetti{position:fixed;z-index:55;top:-20px;width:10px;height:16px;border-radius:3px;animation:fall 1.5s linear forwards}@keyframes fall{to{transform:translateY(110vh) rotate(650deg);opacity:0}}
-@media(max-width:900px){.workspace{grid-template-columns:170px minmax(0,1fr)}.missions{position:static}.missions .badge-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.badge{margin:0}.scene-tip{display:none}}@media(max-width:640px){
-  .workspace{grid-template-columns:1fr}.missions{position:static}.glossary-grid{grid-template-columns:repeat(3,1fr)}
-  /* PORTADA MÓVIL: muestra la imagen completa, sin recortar, con fondo desenfocado */
+#aventura{display:none;width:min(1280px,100%);margin:auto;padding:18px 16px 90px}
+#aventura.open{display:block;animation:openReader .65s cubic-bezier(.2,.8,.2,1)}
+@keyframes openReader{from{opacity:0;transform:translateY(28px) scale(.985)}to{opacity:1;transform:none}}
+
+/* HUD SUPERIOR */
+.hud{
+  position:sticky;top:10px;z-index:25;display:grid;grid-template-columns:1fr auto;gap:12px;
+  align-items:center;margin-bottom:18px;padding:12px 16px;border:2px solid #ffffffcc;
+  border-radius:24px;background:#ffffffea;backdrop-filter:blur(18px);box-shadow:0 12px 34px #211d3b14;
+}
+.hud-title{font-weight:1000;font-size:16px}
+.hud-sub{font-size:12px;font-weight:800;opacity:.7;margin-top:2px}
+.hud-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+.pill{
+  border:2px solid #211d3b16;background:#fff;color:var(--ink);padding:8px 13px;
+  border-radius:999px;cursor:pointer;font-weight:900;font-size:12px;
+  display:inline-flex;align-items:center;gap:5px;transition:transform .15s ease,background .15s ease;
+}
+.pill:hover{transform:translateY(-2px);background:#fbfaff}
+.pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* BOTON ANTIBURRIMIENTO */
+.pill-bored{
+  background:linear-gradient(135deg,#ff2a7a,#ff8a3d,#ffd75e);
+  color:#fff;border:none;box-shadow:0 4px 15px rgba(255,42,122,.4);
+  font-weight:1000;animation:pulseBtn 2.2s infinite alternate;
+}
+.pill-bored:hover{transform:scale(1.06) translateY(-2px);box-shadow:0 6px 20px rgba(255,42,122,.6)}
+@keyframes pulseBtn{
+  0%{transform:scale(1);box-shadow:0 4px 14px rgba(255,42,122,.35)}
+  100%{transform:scale(1.04);box-shadow:0 6px 22px rgba(255,138,61,.65)}
+}
+
+/* BOTON LINTERNA SECRETA */
+.pill-flashlight.active{
+  background:linear-gradient(135deg,#4f46e5,#9333ea);
+  color:#ffe77a;border-color:#ffd75e;box-shadow:0 0 16px rgba(255,215,94,.5);
+}
+
+.progress{height:10px;background:#211d3b10;border-radius:99px;overflow:hidden;grid-column:1/-1}
+.progress i{display:block;height:100%;width:14.2857%;border-radius:99px;background:var(--rainbow);transition:.35s}
+
+/* LAYOUT DE TRABAJO */
+.workspace{display:grid;grid-template-columns:220px minmax(0,1fr);gap:16px;align-items:start}
+
+/* BARRA LATERAL: MISIONES Y COLECCIONABLES */
+.missions{
+  position:sticky;top:102px;padding:14px;border-radius:26px;background:#ffffffea;
+  border:2px solid #ffffff;box-shadow:var(--shadow);backdrop-filter:blur(16px);
+}
+.missions h2{font-size:15px;margin:0 0 6px;display:flex;align-items:center;gap:6px}
+.missions p{font-size:11px;line-height:1.4;font-weight:700;opacity:.7;margin:0 0 10px}
+.stars{font-size:16px;letter-spacing:2px;margin:2px 0 10px;line-height:1;color:#f59e0b}
+.badge-row{display:grid;grid-template-columns:1fr;gap:6px}
+.badge{
+  display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:14px;
+  background:#f5f1ff;font-weight:900;font-size:12px;transition:transform .2s ease;
+}
+.badge span{font-size:18px}
+.badge.locked{filter:grayscale(1);opacity:.4}
+
+/* SECCION ÁLBUM DE STICKERS */
+.stickers-box{margin-top:16px;padding-top:14px;border-top:2px dashed #211d3b14}
+.stickers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.sticker-item{
+  aspect-ratio:1;border-radius:14px;background:#f3f0fa;border:2px solid #fff;
+  display:grid;place-items:center;font-size:22px;cursor:pointer;
+  box-shadow:0 4px 10px #211d3b0d;transition:transform .15s ease,background .15s ease;
+}
+.sticker-item:hover{transform:scale(1.15) rotate(4deg);background:#ffeaf2}
+.sticker-item.locked{filter:grayscale(1);opacity:.35;cursor:default}
+
+/* TIRA DE MINIATURAS VISIBLE */
+.scenes-strip{
+  display:flex;gap:8px;overflow-x:auto;padding:4px 2px 14px;margin-bottom:12px;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+}
+.scenes-strip::-webkit-scrollbar{height:6px}
+.scenes-strip::-webkit-scrollbar-thumb{background:#6d4cff44;border-radius:99px}
+.thumb{
+  flex:0 0 82px;aspect-ratio:2/3;border:3px solid transparent;padding:0;
+  border-radius:14px;overflow:hidden;background:#fff;cursor:pointer;position:relative;
+  scroll-snap-align:start;transition:transform .18s ease,border-color .18s ease;box-shadow:0 4px 12px #211d3b10;
+}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb:hover{transform:scale(1.05) translateY(-2px)}
+.thumb.active{border-color:var(--purple);box-shadow:0 6px 18px #6d4cff44;transform:scale(1.06)}
+.thumb b{position:absolute;bottom:3px;left:3px;border-radius:99px;padding:2px 6px;background:#211d3bdd;color:#fff;font-size:9px;font-weight:900}
+
+/* LECTOR DE ESCENAS */
+.reader{min-width:0}
+.scene{display:none}
+.scene.active{display:block;animation:enter .42s cubic-bezier(.2,.8,.2,1)}
+@keyframes enter{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+.story-card{background:#fff;border:2px solid #fff;border-radius:28px;box-shadow:var(--shadow);padding:14px;overflow:hidden}
+.scene-head{display:flex;align-items:end;justify-content:space-between;gap:12px;padding:4px 6px 12px}
+.scene-number{font-size:12px;font-weight:1000;color:var(--purple);text-transform:uppercase;letter-spacing:.1em}
+.scene-title{font-size:clamp(24px,3.8vw,42px);line-height:.95;font-weight:1000;margin-top:3px}
+.scene-tip{font-size:12px;max-width:340px;text-align:right;font-weight:800;opacity:.7}
+
+/* LIENZO ESTABLE Y FIRME (SIN SACUDIDAS NI MAREOS) */
+.canvas-wrapper{margin:0 auto;width:min(100%,900px)}
+.page-canvas{
+  position:relative;width:100%;aspect-ratio:2/3;border-radius:24px;overflow:hidden;
+  background:#ece8f6;box-shadow:0 22px 55px #211d3b25;touch-action:manipulation;
+  user-select:none;cursor:crosshair;
+}
+.page-canvas img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;
+  user-select:none;transform-origin:center center;
+}
+.page-canvas:after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle at 50% 45%,transparent 40%,#211d3b15 100%),linear-gradient(180deg,#ffffff00 75%,#211d3b20);
+}
+
+/* RESPLANDOR Y NIEBLA SUAVES */
+.glow{position:absolute;z-index:2;width:35%;aspect-ratio:1;border-radius:50%;background:#ffd87524;filter:blur(20px);mix-blend-mode:screen;pointer-events:none;animation:glow 5s ease-in-out infinite}
+.glow.a{left:8%;top:10%}.glow.b{right:5%;bottom:8%;animation-delay:-2s}
+@keyframes glow{50%{transform:translate(20px,-10px) scale(1.15);opacity:.65}}
+.mist{position:absolute;z-index:2;inset:auto -20% 7% -20%;height:25%;background:linear-gradient(90deg,transparent,#fff2,transparent);filter:blur(18px);animation:mist 8s linear infinite;pointer-events:none}
+@keyframes mist{from{transform:translateX(-35%)}to{transform:translateX(35%)}}
+.particles{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+.particle{position:absolute;width:6px;height:9px;border-radius:70% 20%;background:#f1c35d;opacity:.6;animation:particle 5s linear infinite}
+@keyframes particle{from{transform:translate3d(0,-30px,0) rotate(0);opacity:0}15%{opacity:.7}to{transform:translate3d(var(--x),120%,0) rotate(460deg);opacity:0}}
+
+/* ESTELA MÁGICA DE VARITA (PIXAR FAIRY DUST) */
+.wand-spark{
+  position:absolute;z-index:15;pointer-events:none;border-radius:50%;
+  animation:sparkFloat .52s cubic-bezier(0,.8,.3,1) forwards;
+}
+@keyframes sparkFloat{
+  0%{transform:translate(0,0) scale(1.2);opacity:1}
+  100%{transform:translate(var(--mx),var(--my)) scale(0);opacity:0}
+}
+
+/* LINTERNA SECRETA NOCTURNA */
+.flashlight-overlay{
+  position:absolute;inset:0;z-index:12;pointer-events:none;opacity:0;
+  background:radial-gradient(circle 105px at var(--fx,50%) var(--fy,50%),transparent 0%,rgba(14,10,32,.94) 100%);
+  transition:opacity .35s ease;
+}
+.flashlight-active .flashlight-overlay{opacity:1;pointer-events:auto}
+.flashlight-active .mist, .flashlight-active .glow{opacity:.15}
+
+/* SECRETOS OCULTOS REVELABLES CON LINTERNA */
+.secret-clue{
+  position:absolute;z-index:13;pointer-events:none;opacity:0;
+  transform:scale(.7);transition:opacity .25s ease,transform .25s ease,filter .25s ease;
+  font-size:32px;filter:drop-shadow(0 0 10px #ffd75e);user-select:none;
+}
+.secret-clue.revealed{
+  opacity:1;transform:scale(1.3);
+  filter:drop-shadow(0 0 16px #fff) drop-shadow(0 0 26px #ffd75e);
+  animation:cluePulse .8s infinite alternate;
+}
+@keyframes cluePulse{0%{transform:scale(1.2)}100%{transform:scale(1.48) rotate(6deg)}}
+
+/* FUEGOS ARTIFICIALES ANDINOS (DOBLE CLIC) */
+.firework-flash{
+  position:absolute;z-index:18;pointer-events:none;border-radius:50%;
+  background:radial-gradient(circle,#ffffff 0%,#ffd75e 60%,transparent 100%);
+  transform:translate(-50%,-50%);animation:fireFlash .35s ease-out forwards;
+}
+@keyframes fireFlash{0%{width:0;height:0;opacity:1}100%{width:170px;height:170px;opacity:0}}
+.firework-spark{
+  position:absolute;z-index:19;pointer-events:none;width:8px;height:8px;border-radius:50%;
+  animation:fireworkFly .75s cubic-bezier(.1,.9,.2,1) forwards;
+}
+@keyframes fireworkFly{
+  0%{transform:translate(0,0) scale(1.4);opacity:1}
+  100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0}
+}
+
+/* BOCADILLO DE DIÁLOGO INTERACTIVO (COMIC SPEECH BUBBLE) */
+.dialog-pin{
+  position:absolute;z-index:7;cursor:pointer;border:none;background:#ffffff;
+  color:var(--ink);font-weight:900;border-radius:999px;padding:6px 10px;
+  font-size:11px;box-shadow:0 8px 20px #0004,0 0 0 2px var(--purple);
+  display:flex;align-items:center;gap:4px;transition:transform .18s ease;
+  animation:dialogPulse 2s infinite ease-in-out;
+}
+.dialog-pin:hover{transform:scale(1.15) translateY(-3px)}
+@keyframes dialogPulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+/* ESTRELLAS HOTSPOTS */
+.hotspot{
+  position:absolute;z-index:6;width:18px;height:18px;border:0;border-radius:50%;
+  display:grid;place-items:center;cursor:pointer;background:var(--yellow);color:var(--ink);
+  box-shadow:0 0 0 2px #ffffffaa,0 4px 9px #211d3b30;animation:ping 1.8s ease-in-out infinite;
+}
+.hotspot:hover{transform:scale(1.28)}
+.hotspot.found{background:var(--green);animation:none;transform:scale(.92)}
+.hotspot span{font-size:9px;line-height:1}
+@keyframes ping{50%{box-shadow:0 0 0 5px #ffffff66,0 4px 9px #211d3b30}}
+
+/* GLOSARIO ANDINO */
+.glossary{margin:12px 0 2px;padding:10px 14px;border-radius:18px;background:linear-gradient(135deg,#24204f,#40356d);color:#fff;box-shadow:0 10px 24px #211d3b18}
+.glossary-title{text-align:center;font-family:Georgia,'Times New Roman',serif;font-size:15px;font-weight:900;margin-bottom:8px;color:#ffe7a3}
+.glossary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.word-chip{min-width:0;border:0;border-radius:11px;padding:8px 6px;background:#ffffff15;color:#fff;cursor:pointer;text-align:center;transition:transform .15s ease,background .15s ease}
+.word-chip strong{display:block;font-size:11px}
+.word-chip small{display:block;font-size:9px;opacity:.78;margin-top:2px}
+.word-chip:hover{background:#ffffff28;transform:translateY(-2px)}
+
+/* ACCIONES DE INTERACCIÓN Y NAVEGACIÓN */
+.interaction{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.action{
+  border:0;border-radius:16px;padding:11px 8px;background:#f7f4ff;color:var(--ink);
+  cursor:pointer;font-weight:1000;font-size:12px;transition:transform .15s ease,background .15s ease;
+  display:flex;align-items:center;justify-content:center;gap:4px;
+}
+.action:hover{background:#eee8ff;transform:translateY(-2px)}
+.action.primary{background:var(--ink);color:#fff}
+.action.fun{background:linear-gradient(135deg,#ffeaf2,#fff0e0);color:#d42668;border:1.5px solid #ffccd9}
+.action.fun:hover{background:#ffe1ed}
+.message{min-height:44px;display:grid;place-items:center;text-align:center;margin-top:10px;padding:8px 14px;border-radius:16px;background:#fff7d9;font-weight:900;font-size:13px}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}
+.nav button{border:0;border-radius:16px;padding:13px 20px;background:var(--ink);color:#fff;font-weight:1000;cursor:pointer;transition:transform .15s ease}
+.nav button:hover:not(:disabled){transform:translateY(-2px)}
+.nav button:disabled{opacity:.25;cursor:not-allowed}
+.count{font-weight:1000;color:var(--purple);font-size:15px}
+
+/* MODALES */
+.modal{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:16px;background:#211d3bcc;backdrop-filter:blur(10px)}
+.modal.open{display:grid}
+.modal-card{width:min(540px,100%);max-height:90vh;overflow-y:auto;background:#fff;border-radius:28px;padding:24px;box-shadow:0 30px 90px #0006;text-align:center;position:relative}
+.modal-card h3{font-size:26px;margin:8px 0}
+.modal-card p{line-height:1.55;font-weight:700;opacity:.8;font-size:14px}
+.close{border:0;background:var(--ink);color:#fff;border-radius:14px;padding:11px 22px;font-weight:1000;cursor:pointer;margin-top:12px}
+
+/* CENTRO DE ENTRETENIMIENTO (MODO ANTI-ABURRIMIENTO) */
+.fun-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.fun-card{
+  border:2px solid #211d3b12;border-radius:20px;padding:16px 12px;background:#fbf9ff;
+  cursor:pointer;text-align:center;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.fun-card:hover{transform:translateY(-4px);border-color:var(--purple);box-shadow:0 10px 24px #6d4cff18;background:#fff}
+.fun-card span{font-size:32px;display:block;margin-bottom:6px}
+.fun-card strong{display:block;font-size:14px;color:var(--ink)}
+.fun-card small{display:block;font-size:11px;opacity:.7;margin-top:3px}
+
+/* MINIJUEGO: TAMBOR DEL CARNAVAL */
+.drum-kit{display:flex;justify-content:center;gap:14px;margin:20px 0;flex-wrap:wrap}
+.drum-btn{
+  width:95px;height:95px;border-radius:50%;border:4px solid #fff;
+  box-shadow:0 10px 25px rgba(0,0,0,.15);cursor:pointer;display:grid;
+  place-items:center;font-weight:900;font-size:13px;transition:transform .1s ease;
+  user-select:none;-webkit-tap-highlight-color:transparent;
+}
+.drum-btn:active,.drum-btn.hit{transform:scale(.9) translateY(4px)}
+.drum-1{background:linear-gradient(135deg,#ff5f9e,#ff2a7a);color:#fff}
+.drum-2{background:linear-gradient(135deg,#ffd75e,#f59e0b);color:#451a03}
+.drum-3{background:linear-gradient(135deg,#54d9ff,#0284c7);color:#fff}
+
+/* MINIJUEGO: TALLER DE MÁSCARAS */
+.mask-stage{
+  width:200px;height:220px;margin:12px auto;background:#f5f0ff;border-radius:24px;
+  position:relative;display:grid;place-items:center;overflow:hidden;border:3px dashed #6d4cff44;
+}
+.mask-stage.dancing{animation:maskDance .4s infinite alternate ease-in-out}
+@keyframes maskDance{0%{transform:rotate(-8deg) scale(1.05)}100%{transform:rotate(8deg) scale(1.05)}}
+.mask-svg{width:160px;height:180px}
+.mask-controls{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:12px 0}
+.mask-tag{border:2px solid #211d3b14;background:#fff;padding:6px 12px;border-radius:99px;font-size:11px;font-weight:900;cursor:pointer}
+.mask-tag.selected{background:var(--purple);color:#fff;border-color:var(--purple)}
+
+/* LIENZO DE ESPUMA Y PINTURA VIRTUAL */
+#foamCanvas{
+  position:fixed;inset:0;z-index:100;display:none;background:rgba(0,0,0,.65);
+  touch-action:none;cursor:crosshair;
+}
+.foam-bar{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:101;
+  display:none;background:#fff;padding:10px 18px;border-radius:999px;
+  box-shadow:0 12px 40px #0008;gap:10px;align-items:center;
+}
+
+/* TOAST Y CONFETI */
+.toast{
+  position:fixed;left:50%;bottom:22px;z-index:60;transform:translate(-50%,30px);
+  opacity:0;padding:12px 20px;border-radius:999px;background:var(--ink);color:#fff;
+  font-weight:1000;pointer-events:none;transition:.3s;font-size:13px;box-shadow:0 8px 24px #0004;
+}
+.toast.show{transform:translate(-50%,0);opacity:1}
+.confetti{position:fixed;z-index:55;top:-20px;width:10px;height:16px;border-radius:3px;animation:fall 1.5s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(650deg);opacity:0}}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .workspace{grid-template-columns:1fr}
+  .missions{position:static;margin-bottom:14px}
+  .missions .badge-row{grid-template-columns:repeat(3,1fr)}
+  .scene-tip{display:none}
+}
+@media(max-width:640px){
+  .glossary-grid{grid-template-columns:repeat(2,1fr)}
+  .interaction{grid-template-columns:1fr 1fr}
   .cover{min-height:100svh;height:100svh;background:#16142a;isolation:isolate}
   .cover:before{inset:-10%;background:url("portada-pixar.png") center/cover no-repeat;filter:blur(18px) brightness(.72) saturate(1.15);transform:scale(1.12);animation:none;opacity:.9}
   .cover:after{background:linear-gradient(180deg,#0004 0%,#0000 35%,#0006 100%);z-index:1}
   .cover-card{width:100%;height:100svh;padding:0;border-radius:0;position:relative;overflow:hidden}
   .cover-card:before{content:"";position:absolute;z-index:2;inset:0;background:url("portada-pixar.png") center center/contain no-repeat;pointer-events:none}
-  /* El botón real está dentro de la portada; este botón solo conserva el clic */
   .cover .start{z-index:5;left:50%;top:58.5%;bottom:auto;width:58%;height:9%;min-height:0;padding:0;border:0;border-radius:999px;background:transparent;color:transparent;box-shadow:none;text-shadow:none;font-size:0;transform:translate(-50%,-50%);outline:none}
   .cover .start:before,.cover .start:after{display:none}
   .cover .start:hover,.cover .start:active{transform:translate(-50%,-50%) scale(1.02);box-shadow:none}
   .cover .start.jump{animation:mobileTap .48s ease}
   @keyframes mobileTap{50%{transform:translate(-50%,-50%) scale(1.06)}}
-  .hud{top:5px;grid-template-columns:1fr}.hud-actions{justify-content:flex-start}.interaction{grid-template-columns:1fr 1fr}.page-canvas{border-radius:18px}.hotspot{width:13px;height:13px}
+  .hud{top:5px;grid-template-columns:1fr;padding:10px}
+  .hud-actions{justify-content:flex-start}
+  .page-canvas{border-radius:18px}
+  .fun-grid{grid-template-columns:1fr}
 }
-
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
+}
 </style>
 </head>
 <body>
 <div class="bubbles"><i></i><i></i><i></i></div>
 
+<!-- PORTADA PRINCIPAL -->
 <section class="cover" id="cover" aria-label="Portada de Amor en Carnaval">
   <div class="cover-card">
     <div class="cover-content" aria-hidden="true"></div>
@@ -53,104 +388,1328 @@
   </div>
 </section>
 
+<!-- CONTENEDOR PRINCIPAL DE LA HISTORIETA -->
 <main id="aventura">
   <section class="hud">
-    <div><div class="hud-title">🧭 Mi aventura</div><div class="hud-sub" id="hudSub">Encuentra 3 estrellas en cada página.</div></div>
+    <div>
+      <div class="hud-title">🧭 Mi aventura</div>
+      <div class="hud-sub" id="hudSub">Encuentra 3 estrellas en cada página.</div>
+    </div>
     <div class="hud-actions">
-      <button class="pill" id="backCover" type="button">🏠 Portada</button>
+      <!-- BOTÓN SALVAVIDAS ANTI-ABURRIMIENTO -->
+      <button class="pill pill-bored" id="boredBtn" type="button">⚡ ¡Me aburrí!</button>
+      <!-- BOTÓN LINTERNA SECRETA NOCTURNA -->
+      <button class="pill pill-flashlight" id="flashlightBtn" type="button">🔦 Linterna: OFF</button>
+      <button class="pill" id="musicBtn" type="button">🎵 Música: OFF</button>
       <button class="pill" id="listen" type="button">🔊 Escuchar</button>
       <button class="pill" id="fullscreen" type="button">⛶ Pantalla completa</button>
-      <button class="pill" id="reset" type="button">↺ Reiniciar estrellas</button>
+      <button class="pill" id="backCover" type="button">🏠 Portada</button>
     </div>
     <div class="progress"><i id="progress"></i></div>
   </section>
 
   <div class="workspace">
+    <!-- BARRA LATERAL CON MISIONES Y COLECCIONABLES -->
     <aside class="missions">
       <h2>🏆 Misiones</h2>
-      <p>Encuentra las 3 estrellas de cada página. Al completar grupos desbloqueas insignias.</p>
+      <p>Descubre 3 estrellas por página para ganar insignias y desbloquear recuerdos andinos.</p>
       <div class="stars" id="stars">☆ ☆ ☆</div>
       <div class="badge-row">
         <div class="badge locked" id="badge1"><span>🌟</span><div>Explorador</div></div>
         <div class="badge locked" id="badge2"><span>🎈</span><div>Detective</div></div>
-        <div class="badge locked" id="badge3"><span>🎭</span><div>Maestro</div></div>
+        <div class="badge locked" id="badge3"><span>🎭</span><div>Gran Maestro</div></div>
       </div>
-      <div style="margin-top:12px;font-size:11px;font-weight:800;opacity:.55">También puedes tocar la ilustración para crear magia.</div>
+
+      <!-- ÁLBUM DE RECUERDOS ANDINOS -->
+      <div class="stickers-box">
+        <h2>🎒 Colección Andina</h2>
+        <p>Toca para ver el significado cultural.</p>
+        <div class="stickers-grid" id="stickersGrid">
+          <button class="sticker-item locked" type="button" data-id="condor" title="El Cóndor Andino">🦅</button>
+          <button class="sticker-item locked" type="button" data-id="torito" title="Torito de Pucará">🐂</button>
+          <button class="sticker-item locked" type="button" data-id="diablada" title="Máscara de Diablada">🎭</button>
+          <button class="sticker-item locked" type="button" data-id="quena" title="Quena Sagrada">🪈</button>
+          <button class="sticker-item locked" type="button" data-id="inti" title="Sol Inti">🌞</button>
+          <button class="sticker-item locked" type="button" data-id="chakana" title="Chakana Protectora">🌈</button>
+        </div>
+      </div>
+      <button class="pill" id="reset" type="button" style="width:100%;justify-content:center;margin-top:14px">↺ Reiniciar progreso</button>
     </aside>
 
     <section class="reader">
-      <div class="scenes-strip" id="thumbs"></div>
+      <!-- TIRA DE MINIATURAS VISIBLE Y NAVEGABLE -->
+      <div class="scenes-strip" id="thumbs" aria-label="Miniaturas de páginas"></div>
+
+      <!-- ESCENAS DEL CÓMIC -->
       <div id="scenes">
+        <!-- ESCENA 1 -->
         <article class="scene active" data-n="1" data-title="El ritmo del Ande" data-text="El carnaval abre el camino para el encuentro de Carlos y Visitación.">
-          <div class="story-card"><div class="scene-head"><div><div class="scene-number">Página 01</div><div class="scene-title">El ritmo del Ande</div></div><div class="scene-tip">Busca las ⭐ escondidas.</div></div><div class="page-canvas exploring" data-page="1"><img src="pagina-1.png" alt="Página 1 de Amor en Carnaval"><div class="glow a"></div><div class="glow b"></div><div class="mist"></div><div class="particles"></div></div><div class="glossary"><div class="glossary-title">🌿 Palabras andinas de hoy</div><div class="glossary-grid"><button class="word-chip" type="button" data-word="Pachamama: Madre Tierra"><strong>Pachamama</strong><small>Madre Tierra</small></button><button class="word-chip" type="button" data-word="Ayni: Ayuda mutua"><strong>Ayni</strong><small>Ayuda mutua</small></button><button class="word-chip" type="button" data-word="Chakana: Puente, unión"><strong>Chakana</strong><small>Puente, unión</small></button><button class="word-chip" type="button" data-word="Inti: Sol"><strong>Inti</strong><small>Sol</small></button><button class="word-chip" type="button" data-word="Killa: Luna"><strong>Killa</strong><small>Luna</small></button><button class="word-chip" type="button" data-word="Tinkuy: Encuentro"><strong>Tinkuy</strong><small>Encuentro</small></button><button class="word-chip" type="button" data-word="Apu: Montaña sagrada"><strong>Apu</strong><small>Montaña sagrada</small></button><button class="word-chip" type="button" data-word="Tanta: Comida, pan"><strong>Tanta</strong><small>Comida, pan</small></button></div></div><div class="interaction"><button class="action primary fact" type="button">💡 ¿Qué pasa aquí?</button><button class="action word" type="button">📚 Palabra andina</button><button class="action magic" type="button">✨ Hacer magia</button></div><div class="message">Toca una estrella para comenzar ⭐</div></div>
+          <div class="story-card">
+            <div class="scene-head">
+              <div>
+                <div class="scene-number">Página 01</div>
+                <div class="scene-title">El ritmo del Ande</div>
+              </div>
+              <div class="scene-tip">✨ Pasa el mouse para chispas mágicas · Doble clic para 🎆 fuegos artificiales</div>
+            </div>
+            <div class="canvas-wrapper">
+              <div class="page-canvas exploring" data-page="1">
+                <img src="pagina-1.png" alt="Página 1 de Amor en Carnaval">
+                <div class="glow a"></div><div class="glow b"></div><div class="mist"></div><div class="particles"></div>
+                <!-- Capa y secretos de linterna nocturna -->
+                <div class="flashlight-overlay"></div>
+                <div class="secret-clue" style="left:18%;top:32%" data-name="Amuleto Dorado">✨</div>
+                <div class="secret-clue" style="right:22%;top:76%" data-name="Huella Mágica">🐾</div>
+                <!-- Bocadillos de cómic interactivos -->
+                <button class="dialog-pin" style="left:24%;top:48%" data-voice="¡La fiesta patronal apenas comienza!" type="button">💬 Carlos</button>
+                <button class="dialog-pin" style="right:20%;top:54%" data-voice="¡Qué hermosa música de carnaval!" type="button">💬 Visitación</button>
+              </div>
+            </div>
+            <div class="glossary">
+              <div class="glossary-title">🌿 Palabras andinas de hoy</div>
+              <div class="glossary-grid">
+                <button class="word-chip" type="button" data-word="Pachamama: Madre Tierra y fuente de vida."><strong>Pachamama</strong><small>Madre Tierra</small></button>
+                <button class="word-chip" type="button" data-word="Ayni: Principio de solidaridad y ayuda mutua."><strong>Ayni</strong><small>Ayuda mutua</small></button>
+                <button class="word-chip" type="button" data-word="Chakana: La cruz andina que simboliza unión y puente cósmico."><strong>Chakana</strong><small>Puente, unión</small></button>
+                <button class="word-chip" type="button" data-word="Inti: El dios Sol, energía vital de los Andes."><strong>Inti</strong><small>Sol</small></button>
+              </div>
+            </div>
+            <div class="interaction">
+              <button class="action primary fact" type="button">💡 ¿Qué pasa aquí?</button>
+              <button class="action word" type="button">📚 Aprender palabra</button>
+              <button class="action magic" type="button">✨ Hacer magia</button>
+              <button class="action fun minigame-trigger" type="button">🥁 Tocar tambor</button>
+            </div>
+            <div class="message">Toca una estrella para comenzar ⭐</div>
+          </div>
         </article>
 
+        <!-- ESCENA 2 -->
         <article class="scene" data-n="2" data-title="El fuego de la convicción" data-text="Carlos recupera fuerzas y decide luchar por su amor.">
-          <div class="story-card"><div class="scene-head"><div><div class="scene-number">Página 02</div><div class="scene-title">El fuego de la convicción</div></div><div class="scene-tip">Sigue el corazón de Carlos.</div></div><div class="page-canvas exploring" data-page="3"><img src="pagina-3.png" alt="Página 2 de la historieta"><div class="glow a"></div><div class="glow b"></div><div class="mist"></div><div class="particles"></div></div><div class="glossary"><div class="glossary-title">🌿 Palabras andinas de hoy</div><div class="glossary-grid"><button class="word-chip" type="button" data-word="Ayni: Ayuda mutua"><strong>Ayni</strong><small>Ayuda mutua</small></button><button class="word-chip" type="button" data-word="Tinkuy: Encuentro"><strong>Tinkuy</strong><small>Encuentro</small></button><button class="word-chip" type="button" data-word="Sumaq: Hermoso, bello"><strong>Sumaq</strong><small>Hermoso, bello</small></button><button class="word-chip" type="button" data-word="Wawa: Niño, niña"><strong>Wawa</strong><small>Niño, niña</small></button><button class="word-chip" type="button" data-word="Minka: Trabajo comunitario"><strong>Minka</strong><small>Trabajo comunitario</small></button><button class="word-chip" type="button" data-word="Apu: Montaña sagrada"><strong>Apu</strong><small>Montaña sagrada</small></button><button class="word-chip" type="button" data-word="Inti: Sol"><strong>Inti</strong><small>Sol</small></button><button class="word-chip" type="button" data-word="Kawsay: Vida"><strong>Kawsay</strong><small>Vida</small></button></div></div><div class="interaction"><button class="action primary fact" type="button">💡 ¿Qué decide?</button><button class="action word" type="button">📚 Palabra andina</button><button class="action magic" type="button">✨ Hacer magia</button></div><div class="message">Una nueva decisión mueve la historia.</div></div>
+          <div class="story-card">
+            <div class="scene-head">
+              <div>
+                <div class="scene-number">Página 02</div>
+                <div class="scene-title">El fuego de la convicción</div>
+              </div>
+              <div class="scene-tip">✨ Pasa el mouse para chispas mágicas · Doble clic para 🎆 fuegos artificiales</div>
+            </div>
+            <div class="canvas-wrapper">
+              <div class="page-canvas exploring" data-page="2">
+                <img src="pagina-3.png" alt="Página 2 de la historieta">
+                <div class="glow a"></div><div class="glow b"></div><div class="mist"></div><div class="particles"></div>
+                <div class="flashlight-overlay"></div>
+                <div class="secret-clue" style="left:72%;top:28%" data-name="Pluma de Cóndor">🪶</div>
+                <div class="secret-clue" style="left:26%;top:70%" data-name="Corazón Valiente">💖</div>
+                <button class="dialog-pin" style="left:30%;top:44%" data-voice="¡No me daré por vencido, encontraré a Visitación!" type="button">💬 Convicción</button>
+              </div>
+            </div>
+            <div class="glossary">
+              <div class="glossary-title">🌿 Palabras andinas de hoy</div>
+              <div class="glossary-grid">
+                <button class="word-chip" type="button" data-word="Tinkuy: Encuentro sagrado y esperado de personas o caminos."><strong>Tinkuy</strong><small>Encuentro</small></button>
+                <button class="word-chip" type="button" data-word="Sumaq: Bello, hermoso, lleno de gracia."><strong>Sumaq</strong><small>Hermoso</small></button>
+                <button class="word-chip" type="button" data-word="Minka: Trabajo comunitario festivo en beneficio de todos."><strong>Minka</strong><small>Trabajo comunitario</small></button>
+                <button class="word-chip" type="button" data-word="Kawsay: La vida y la existencia en armonía."><strong>Kawsay</strong><small>Vida</small></button>
+              </div>
+            </div>
+            <div class="interaction">
+              <button class="action primary fact" type="button">💡 ¿Qué decide?</button>
+              <button class="action word" type="button">📚 Aprender palabra</button>
+              <button class="action magic" type="button">✨ Hacer magia</button>
+              <button class="action fun mask-trigger" type="button">🎭 Taller máscara</button>
+            </div>
+            <div class="message">Una nueva decisión mueve la historia.</div>
+          </div>
         </article>
 
+        <!-- ESCENA 3 -->
         <article class="scene" data-n="3" data-title="La fiesta y el engaño" data-text="La fiesta esconde una verdad y aumenta la tensión.">
-          <div class="story-card"><div class="scene-head"><div><div class="scene-number">Página 03</div><div class="scene-title">La fiesta y el engaño</div></div><div class="scene-tip">Mira bien: la fiesta oculta pistas.</div></div><div class="page-canvas exploring" data-page="4"><img src="pagina-4.png" alt="Página 3 de la historieta"><div class="glow a"></div><div class="glow b"></div><div class="mist"></div><div class="particles"></div></div><div class="glossary"><div class="glossary-title">🌿 Palabras andinas de hoy</div><div class="glossary-grid"><button class="word-chip" type="button" data-word="Pukllay: Jugar, celebrar"><strong>Pukllay</strong><small>Jugar, celebrar</small></button><button class="word-chip" type="button" data-word="Raymi: Fiesta, celebración"><strong>Raymi</strong><small>Fiesta, celebración</small></button><button class="word-chip" type="button" data-word="Taki: Canto"><strong>Taki</strong><small>Canto</small></button><button class="word-chip" type="button" data-word="Tusuy: Bailar"><strong>Tusuy</strong><small>Bailar</small></button><button class="word-chip" type="button" data-word="Ayni: Ayuda mutua"><strong>Ayni</strong><small>Ayuda mutua</small></button><button class="word-chip" type="button" data-word="Tinkuy: Encuentro"><strong>Tinkuy</strong><small>Encuentro</small></button><button class="word-chip" type="button" data-word="Sumaq: Hermoso"><strong>Sumaq</strong><small>Hermoso</small></button><button class="word-chip" type="button" data-word="Inti: Sol"><strong>Inti</strong><small>Sol</small></button></div></div><div class="interaction"><button class="action primary fact" type="button">💡 Encuentra la pista</button><button class="action word" type="button">📚 Palabra andina</button><button class="action magic" type="button">✨ Hacer magia</button></div><div class="message">Hay algo que los personajes todavía no saben…</div></div>
+          <div class="story-card">
+            <div class="scene-head">
+              <div>
+                <div class="scene-number">Página 03</div>
+                <div class="scene-title">La fiesta y el engaño</div>
+              </div>
+              <div class="scene-tip">✨ Pasa el mouse para chispas mágicas · Doble clic para 🎆 fuegos artificiales</div>
+            </div>
+            <div class="canvas-wrapper">
+              <div class="page-canvas exploring" data-page="3">
+                <img src="pagina-4.png" alt="Página 3 de la historieta">
+                <div class="glow a"></div><div class="glow b"></div><div class="mist"></div><div class="particles"></div>
+                <div class="flashlight-overlay"></div>
+                <div class="secret-clue" style="left:48%;top:22%" data-name="Máscara Mística">🎭</div>
+                <div class="secret-clue" style="right:18%;top:65%" data-name="Llave Antigua">🗝️</div>
+                <button class="dialog-pin" style="right:25%;top:40%" data-voice="¡Bailen todos, nadie debe sospechar!" type="button">💬 Misterio</button>
+              </div>
+            </div>
+            <div class="glossary">
+              <div class="glossary-title">🌿 Palabras andinas de hoy</div>
+              <div class="glossary-grid">
+                <button class="word-chip" type="button" data-word="Pukllay: Celebrar, jugar y disfrutar del carnaval."><strong>Pukllay</strong><small>Jugar, celebrar</small></button>
+                <button class="word-chip" type="button" data-word="Raymi: Gran fiesta o celebración ancestral."><strong>Raymi</strong><small>Fiesta</small></button>
+                <button class="word-chip" type="button" data-word="Taki: Canto tradicional andino."><strong>Taki</strong><small>Canto</small></button>
+                <button class="word-chip" type="button" data-word="Tusuy: Danzar y bailar con entusiasmo."><strong>Tusuy</strong><small>Bailar</small></button>
+              </div>
+            </div>
+            <div class="interaction">
+              <button class="action primary fact" type="button">💡 Encuentra la pista</button>
+              <button class="action word" type="button">📚 Aprender palabra</button>
+              <button class="action magic" type="button">✨ Hacer magia</button>
+              <button class="action fun trivia-trigger" type="button">❓ Trivia express</button>
+            </div>
+            <div class="message">Hay algo que los personajes todavía no saben…</div>
+          </div>
         </article>
 
+        <!-- ESCENA 4 -->
         <article class="scene" data-n="4" data-title="El día del engaño" data-text="El engaño se hace más evidente y Carlos intenta entender qué ocurre.">
-          <div class="story-card"><div class="scene-head"><div><div class="scene-number">Página 04</div><div class="scene-title">El día del engaño</div></div><div class="scene-tip">Busca detalles que cambian el sentido.</div></div><div class="page-canvas exploring" data-page="5"><img src="pagina-5.png" alt="Página 4 de la historieta"><div class="glow a"></div><div class="glow b"></div><div class="mist"></div><div class="particles"></div></div><div class="glossary"><div class="glossary-title">🌿 Palabras andinas de hoy</div><div class="glossary-grid"><button class="word-chip" type="button" data-word="Munay: Amor, querer"><strong>Munay</strong><small>Amor, querer</small></button><button class="word-chip" type="button" data-word="Llaki: Tristeza"><strong>Llaki</strong><small>Tristeza</small></button><button class="word-chip" type="button" data-word="Sonqo: Corazón"><strong>Sonqo</strong><small>Corazón</small></button><button class="word-chip" type="button" data-word="Ayni: Ayuda mutua"><strong>Ayni</strong><small>Ayuda mutua</small></button><button class="word-chip" type="button" data-word="Tinkuy: Encuentro"><strong>Tinkuy</strong><small>Encuentro</small></button><button class="word-chip" type="button" data-word="Suyay: Esperar"><strong>Suyay</strong><small>Esperar</small></button><button class="word-chip" type="button" data-word="Kawsay: Vida"><strong>Kawsay</strong><small>Vida</small></button><button class="word-chip" type="button" data-word="Sumaq: Hermoso"><strong>Sumaq</strong><small>Hermoso</small></button></div></div><div class="interaction"><button class="action primary fact" type="button">💡 ¿Qué descubrimos?</button><button class="action word" type="button">📚 Palabra andina</button><button class="action magic" type="button">✨ Hacer magia</button></div><div class="message">La verdad está cada vez más cerca.</div></div>
+          <div class="story-card">
+            <div class="scene-head">
+              <div>
+                <div class="scene-number">Página 04</div>
+                <div class="scene-title">El día del engaño</div>
+              </div>
+              <div class="scene-tip">✨ Pasa el mouse para chispas mágicas · Doble clic para 🎆 fuegos artificiales</div>
+            </div>
+            <div class="canvas-wrapper">
+              <div class="page-canvas exploring" data-page="4">
+                <img src="pagina-5.png" alt="Página 4 de la historieta">
+                <div class="glow a"></div><div class="glow b"></div><div class="mist"></div><div class="particles"></div>
+                <div class="flashlight-overlay"></div>
+                <div class="secret-clue" style="left:22%;top:35%" data-name="Lupa Oculta">🔍</div>
+                <div class="secret-clue" style="right:30%;top:78%" data-name="Papiro Secreto">📜</div>
+                <button class="dialog-pin" style="left:26%;top:50%" data-voice="¡Algo no cuadra en esta celebración!" type="button">💬 Sospecha</button>
+              </div>
+            </div>
+            <div class="glossary">
+              <div class="glossary-title">🌿 Palabras andinas de hoy</div>
+              <div class="glossary-grid">
+                <button class="word-chip" type="button" data-word="Munay: El poder del amor y desear el bien de corazón."><strong>Munay</strong><small>Amor, querer</small></button>
+                <button class="word-chip" type="button" data-word="Sonqo: El corazón, centro de los sentimientos y el valor."><strong>Sonqo</strong><small>Corazón</small></button>
+                <button class="word-chip" type="button" data-word="Llaki: Tristeza o pena pasajera."><strong>Llaki</strong><small>Tristeza</small></button>
+                <button class="word-chip" type="button" data-word="Suyay: Esperanza y paciencia para esperar lo bueno."><strong>Suyay</strong><small>Esperar</small></button>
+              </div>
+            </div>
+            <div class="interaction">
+              <button class="action primary fact" type="button">💡 ¿Qué descubrimos?</button>
+              <button class="action word" type="button">📚 Aprender palabra</button>
+              <button class="action magic" type="button">✨ Hacer magia</button>
+              <button class="action fun foam-trigger" type="button">🫧 Lanzar espuma</button>
+            </div>
+            <div class="message">La verdad está cada vez más cerca.</div>
+          </div>
         </article>
 
+        <!-- ESCENA 5 -->
         <article class="scene" data-n="5" data-title="La verdad salió a la luz" data-text="La verdad se hace visible y cambia las decisiones de los personajes.">
-          <div class="story-card"><div class="scene-head"><div><div class="scene-number">Página 05</div><div class="scene-title">La verdad salió a la luz</div></div><div class="scene-tip">Toca una estrella y sigue avanzando.</div></div><div class="page-canvas exploring" data-page="6"><img src="pagina-6.png" alt="Página 5 de la historieta"><div class="glow a"></div><div class="glow b"></div><div class="mist"></div><div class="particles"></div></div><div class="glossary"><div class="glossary-title">🌿 Palabras andinas de hoy</div><div class="glossary-grid"><button class="word-chip" type="button" data-word="Rimay: Hablar"><strong>Rimay</strong><small>Hablar</small></button><button class="word-chip" type="button" data-word="Willay: Contar, avisar"><strong>Willay</strong><small>Contar, avisar</small></button><button class="word-chip" type="button" data-word="Cheqaq: Verdadero"><strong>Cheqaq</strong><small>Verdadero</small></button><button class="word-chip" type="button" data-word="Munay: Amor"><strong>Munay</strong><small>Amor</small></button><button class="word-chip" type="button" data-word="Sonqo: Corazón"><strong>Sonqo</strong><small>Corazón</small></button><button class="word-chip" type="button" data-word="Ayni: Ayuda mutua"><strong>Ayni</strong><small>Ayuda mutua</small></button><button class="word-chip" type="button" data-word="Tinkuy: Encuentro"><strong>Tinkuy</strong><small>Encuentro</small></button><button class="word-chip" type="button" data-word="Sumaq: Hermoso"><strong>Sumaq</strong><small>Hermoso</small></button></div></div><div class="interaction"><button class="action primary fact" type="button">💡 La gran revelación</button><button class="action word" type="button">📚 Palabra andina</button><button class="action magic" type="button">✨ Hacer magia</button></div><div class="message">Ahora todos pueden ver lo que antes estaba oculto.</div></div>
+          <div class="story-card">
+            <div class="scene-head">
+              <div>
+                <div class="scene-number">Página 05</div>
+                <div class="scene-title">La verdad salió a la luz</div>
+              </div>
+              <div class="scene-tip">✨ Pasa el mouse para chispas mágicas · Doble clic para 🎆 fuegos artificiales</div>
+            </div>
+            <div class="canvas-wrapper">
+              <div class="page-canvas exploring" data-page="5">
+                <img src="pagina-6.png" alt="Página 5 de la historieta">
+                <div class="glow a"></div><div class="glow b"></div><div class="mist"></div><div class="particles"></div>
+                <div class="flashlight-overlay"></div>
+                <div class="secret-clue" style="left:55%;top:24%" data-name="Estrella Brillante">🌟</div>
+                <div class="secret-clue" style="left:20%;top:68%" data-name="Paloma de la Paz">🕊️</div>
+                <button class="dialog-pin" style="left:40%;top:36%" data-voice="¡La máscara se ha caído, ya sabemos la verdad!" type="button">💬 Revelación</button>
+              </div>
+            </div>
+            <div class="glossary">
+              <div class="glossary-title">🌿 Palabras andinas de hoy</div>
+              <div class="glossary-grid">
+                <button class="word-chip" type="button" data-word="Rimay: Expresarse y hablar con claridad."><strong>Rimay</strong><small>Hablar</small></button>
+                <button class="word-chip" type="button" data-word="Cheqaq: La verdad indudable."><strong>Cheqaq</strong><small>Verdad</small></button>
+                <button class="word-chip" type="button" data-word="Willay: Dar una noticia o avisar a la comunidad."><strong>Willay</strong><small>Contar, avisar</small></button>
+                <button class="word-chip" type="button" data-word="Ayni: Apoyo incondicional entre hermanos."><strong>Ayni</strong><small>Ayuda mutua</small></button>
+              </div>
+            </div>
+            <div class="interaction">
+              <button class="action primary fact" type="button">💡 Gran revelación</button>
+              <button class="action word" type="button">📚 Aprender palabra</button>
+              <button class="action magic" type="button">✨ Hacer magia</button>
+              <button class="action fun trivia-trigger" type="button">❓ Trivia express</button>
+            </div>
+            <div class="message">Ahora todos pueden ver lo que antes estaba oculto.</div>
+          </div>
         </article>
 
+        <!-- ESCENA 6 -->
         <article class="scene" data-n="6" data-title="El secuestro" data-text="Visitación es llevada contra su voluntad y Carlos decide ir tras ella.">
-          <div class="story-card"><div class="scene-head"><div><div class="scene-number">Página 06</div><div class="scene-title">El secuestro</div></div><div class="scene-tip">Esta es la misión de rescate.</div></div><div class="page-canvas exploring" data-page="7"><img src="pagina-7.png" alt="Página 6 de la historieta"><div class="glow a"></div><div class="glow b"></div><div class="mist"></div><div class="particles"></div></div><div class="glossary"><div class="glossary-title">🌿 Palabras andinas de hoy</div><div class="glossary-grid"><button class="word-chip" type="button" data-word="Qhapaq: Poderoso, noble"><strong>Qhapaq</strong><small>Poderoso, noble</small></button><button class="word-chip" type="button" data-word="Ñan: Camino"><strong>Ñan</strong><small>Camino</small></button><button class="word-chip" type="button" data-word="Apu: Montaña sagrada"><strong>Apu</strong><small>Montaña sagrada</small></button><button class="word-chip" type="button" data-word="Suyay: Esperanza"><strong>Suyay</strong><small>Esperanza</small></button><button class="word-chip" type="button" data-word="Ayni: Ayuda mutua"><strong>Ayni</strong><small>Ayuda mutua</small></button><button class="word-chip" type="button" data-word="Chaski: Mensajero"><strong>Chaski</strong><small>Mensajero</small></button><button class="word-chip" type="button" data-word="Tinkuy: Encuentro"><strong>Tinkuy</strong><small>Encuentro</small></button><button class="word-chip" type="button" data-word="Kawsay: Vida"><strong>Kawsay</strong><small>Vida</small></button></div></div><div class="interaction"><button class="action primary fact" type="button">💡 ¿Qué hará Carlos?</button><button class="action word" type="button">📚 Palabra andina</button><button class="action magic" type="button">✨ Hacer magia</button></div><div class="message">La aventura entra en su momento de mayor tensión.</div></div>
+          <div class="story-card">
+            <div class="scene-head">
+              <div>
+                <div class="scene-number">Página 06</div>
+                <div class="scene-title">El secuestro</div>
+              </div>
+              <div class="scene-tip">✨ Pasa el mouse para chispas mágicas · Doble clic para 🎆 fuegos artificiales</div>
+            </div>
+            <div class="canvas-wrapper">
+              <div class="page-canvas exploring" data-page="6">
+                <img src="pagina-7.png" alt="Página 6 de la historieta">
+                <div class="glow a"></div><div class="glow b"></div><div class="mist"></div><div class="particles"></div>
+                <div class="flashlight-overlay"></div>
+                <div class="secret-clue" style="right:20%;top:30%" data-name="Apu Guardián">⛰️</div>
+                <div class="secret-clue" style="left:34%;top:74%" data-name="Antorcha Encendida">🔥</div>
+                <button class="dialog-pin" style="right:25%;top:46%" data-voice="¡No temas Visitación, voy en camino!" type="button">💬 Rescate</button>
+              </div>
+            </div>
+            <div class="glossary">
+              <div class="glossary-title">🌿 Palabras andinas de hoy</div>
+              <div class="glossary-grid">
+                <button class="word-chip" type="button" data-word="Qhapaq: Nobleza, grandeza y fortaleza de espíritu."><strong>Qhapaq</strong><small>Poderoso, noble</small></button>
+                <button class="word-chip" type="button" data-word="Ñan: El sendero o camino que conduce al destino."><strong>Ñan</strong><small>Camino</small></button>
+                <button class="word-chip" type="button" data-word="Apu: La montaña sagrada tutelar que protege a los caminantes."><strong>Apu</strong><small>Montaña sagrada</small></button>
+                <button class="word-chip" type="button" data-word="Chaski: Mensajero veloz de los Andes."><strong>Chaski</strong><small>Mensajero</small></button>
+              </div>
+            </div>
+            <div class="interaction">
+              <button class="action primary fact" type="button">💡 ¿Qué hará Carlos?</button>
+              <button class="action word" type="button">📚 Aprender palabra</button>
+              <button class="action magic" type="button">✨ Hacer magia</button>
+              <button class="action fun minigame-trigger" type="button">🥁 Ritmo de rescate</button>
+            </div>
+            <div class="message">La aventura entra en su momento de mayor emoción.</div>
+          </div>
         </article>
 
-        <article class="scene" data-n="7" data-title="El amor triunfa" data-text="Carlos y Visitación se reencuentran y enfrentan juntos el conflicto.">
-          <div class="story-card"><div class="scene-head"><div><div class="scene-number">Página 07</div><div class="scene-title">El amor triunfa</div></div><div class="scene-tip">Última misión: encuentra las estrellas finales.</div></div><div class="page-canvas exploring" data-page="8"><img src="pagina-8.png" alt="Página 7 de la historieta"><div class="glow a"></div><div class="glow b"></div><div class="mist"></div><div class="particles"></div></div><div class="glossary"><div class="glossary-title">🌿 Palabras andinas de hoy</div><div class="glossary-grid"><button class="word-chip" type="button" data-word="Munay: Amor"><strong>Munay</strong><small>Amor</small></button><button class="word-chip" type="button" data-word="Sumaq: Hermoso"><strong>Sumaq</strong><small>Hermoso</small></button><button class="word-chip" type="button" data-word="Kusiy: Alegría"><strong>Kusiy</strong><small>Alegría</small></button><button class="word-chip" type="button" data-word="Tinkuy: Encuentro"><strong>Tinkuy</strong><small>Encuentro</small></button><button class="word-chip" type="button" data-word="Ayni: Ayuda mutua"><strong>Ayni</strong><small>Ayuda mutua</small></button><button class="word-chip" type="button" data-word="Pachamama: Madre Tierra"><strong>Pachamama</strong><small>Madre Tierra</small></button><button class="word-chip" type="button" data-word="Kawsay: Vida"><strong>Kawsay</strong><small>Vida</small></button><button class="word-chip" type="button" data-word="Sumaq Kawsay: Buen vivir"><strong>Sumaq Kawsay</strong><small>Buen vivir</small></button></div></div><div class="interaction"><button class="action primary fact" type="button">💡 ¿Cómo termina?</button><button class="action word" type="button">📚 Palabra andina</button><button class="action magic" type="button">✨ Celebrar</button></div><div class="message">¡Llegaste al final de la aventura! 🎉</div></div>
+        <!-- ESCENA 7 -->
+        <article class="scene" data-n="7" data-title="El amor triunfa" data-text="Carlos y Visitación se reencuentran y celebran el gran triunfo del amor en el carnaval.">
+          <div class="story-card">
+            <div class="scene-head">
+              <div>
+                <div class="scene-number">Página 07</div>
+                <div class="scene-title">El amor triunfa</div>
+              </div>
+              <div class="scene-tip">✨ Pasa el mouse para chispas mágicas · Doble clic para 🎆 fuegos artificiales</div>
+            </div>
+            <div class="canvas-wrapper">
+              <div class="page-canvas exploring" data-page="7">
+                <img src="pagina-8.png" alt="Página 7 de la historieta">
+                <div class="glow a"></div><div class="glow b"></div><div class="mist"></div><div class="particles"></div>
+                <div class="flashlight-overlay"></div>
+                <div class="secret-clue" style="left:48%;top:25%" data-name="Corona Festiva">👑</div>
+                <div class="secret-clue" style="right:25%;top:72%" data-name="Trofeo de Carnaval">🏆</div>
+                <button class="dialog-pin" style="left:35%;top:42%" data-voice="¡Juntos para siempre en este gran carnaval!" type="button">💬 ¡Victoria!</button>
+              </div>
+            </div>
+            <div class="glossary">
+              <div class="glossary-title">🌿 Palabras andinas de hoy</div>
+              <div class="glossary-grid">
+                <button class="word-chip" type="button" data-word="Kusiy: Alegría desbordante y felicidad compartida."><strong>Kusiy</strong><small>Alegría</small></button>
+                <button class="word-chip" type="button" data-word="Sumaq Kawsay: La filosofía del buen vivir en armonía con la naturaleza."><strong>Sumaq Kawsay</strong><small>Buen vivir</small></button>
+                <button class="word-chip" type="button" data-word="Tinkuy: La fiesta del reencuentro de corazones."><strong>Tinkuy</strong><small>Encuentro</small></button>
+                <button class="word-chip" type="button" data-word="Munay: Amor verdadero que perdura."><strong>Munay</strong><small>Amor</small></button>
+              </div>
+            </div>
+            <div class="interaction">
+              <button class="action primary fact" type="button">💡 ¿Cómo termina?</button>
+              <button class="action word" type="button">📚 Aprender palabra</button>
+              <button class="action magic" type="button">✨ Celebrar</button>
+              <button class="action fun foam-trigger" type="button">🎉 Fiesta de espuma</button>
+            </div>
+            <div class="message">¡Llegaste al final de la aventura! 🎉</div>
+          </div>
         </article>
       </div>
-      <div class="nav"><button id="prev" type="button">← Anterior</button><div class="count" id="count">1 / 7</div><button id="next" type="button">Siguiente →</button></div>
+
+      <!-- BOTONES DE NAVEGACIÓN -->
+      <div class="nav">
+        <button id="prev" type="button">← Anterior</button>
+        <div class="count" id="count">1 / 7</div>
+        <button id="next" type="button">Siguiente →</button>
+      </div>
     </section>
   </div>
 </main>
 
-<div class="modal" id="modal"><div class="modal-card"><div id="modalIcon" style="font-size:50px">💡</div><h3 id="modalTitle">Descubrimiento</h3><p id="modalText"></p><button class="close" id="close" type="button">¡Entendido!</button></div></div>
+<!-- MODAL GENÉRICO DE INFORMACIÓN -->
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <div id="modalIcon" style="font-size:50px">💡</div>
+    <h3 id="modalTitle">Descubrimiento</h3>
+    <p id="modalText"></p>
+    <button class="close" id="close" type="button">¡Entendido!</button>
+  </div>
+</div>
+
+<!-- MODAL SALVAVIDAS: CENTRO DE ENTRETENIMIENTO ANTI-ABURRIMIENTO -->
+<div class="modal" id="boredModal">
+  <div class="modal-card">
+    <div style="font-size:50px">⚡🎉</div>
+    <h3>¿Aburrido? ¡A jugar!</h3>
+    <p>Elige una diversión rápida para recargar energías en este carnaval:</p>
+    <div class="fun-grid">
+      <div class="fun-card" id="openFoam">
+        <span>🫧</span>
+        <strong>Lanzador de Espuma</strong>
+        <small>Pinta y rocía espuma de fiesta por la pantalla</small>
+      </div>
+      <div class="fun-card" id="openDrums">
+        <span>🥁</span>
+        <strong>Tambor del Carnaval</strong>
+        <small>Toca ritmos andinos con sonido en vivo</small>
+      </div>
+      <div class="fun-card" id="openMask">
+        <span>🎭</span>
+        <strong>Taller de Máscaras</strong>
+        <small>Diseña tu propia máscara festiva y hazla bailar</small>
+      </div>
+      <div class="fun-card" id="openTrivia">
+        <span>❓</span>
+        <strong>Trivia Andina</strong>
+        <small>Responde y gana stickers para tu álbum</small>
+      </div>
+    </div>
+    <button class="pill pill-bored" id="randomSurprise" type="button" style="width:100%;justify-content:center;padding:12px">🎲 ¡Sorpréndeme al azar!</button>
+    <button class="close" id="closeBored" type="button" style="margin-top:10px">Volver al cómic</button>
+  </div>
+</div>
+
+<!-- MODAL: MINIJUEGO DE TAMBORES Y RITMO -->
+<div class="modal" id="drumModal">
+  <div class="modal-card">
+    <div style="font-size:48px">🥁✨</div>
+    <h3>El Tambor del Carnaval</h3>
+    <p>¡Toca los instrumentos andinos y siente el latido de la montaña!</p>
+    <div class="drum-kit">
+      <button class="drum-btn drum-1" id="drumBass" type="button">🥁<br>BOMBO</button>
+      <button class="drum-btn drum-2" id="drumChaj" type="button">✨<br>CHAJCHAS</button>
+      <button class="drum-btn drum-3" id="drumQuena" type="button">🪈<br>QUENA</button>
+    </div>
+    <div style="font-weight:900;color:var(--purple);font-size:14px;margin-bottom:12px" id="drumScore">¡Toca a tu propio compás!</div>
+    <div style="display:flex;gap:8px;justify-content:center">
+      <button class="pill" id="drumPatternBtn" type="button">🎯 Modo Desafío (Sigue el ritmo)</button>
+      <button class="close" id="closeDrum" type="button" style="margin-top:0">Salir</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: TALLER DE MÁSCARAS -->
+<div class="modal" id="maskModal">
+  <div class="modal-card">
+    <div style="font-size:48px">🎭🎨</div>
+    <h3>Taller de Máscaras Andinas</h3>
+    <p>Combina los elementos tradicionales y haz bailar tu creación.</p>
+    <div class="mask-stage" id="maskStage">
+      <svg class="mask-svg" viewBox="0 0 100 120">
+        <path id="maskBase" d="M20,30 C20,10 80,10 80,30 C80,75 65,105 50,110 C35,105 20,75 20,30 Z" fill="#e11d48" stroke="#ffd75e" stroke-width="3"/>
+        <g id="maskHorns">
+          <path d="M25,25 C10,5 0,2 5,-5 C15,-5 25,12 30,22 Z" fill="#ffd75e"/>
+          <path d="M75,25 C90,5 100,2 95,-5 C85,-5 75,12 70,22 Z" fill="#ffd75e"/>
+        </g>
+        <g id="maskFeathers" style="display:none">
+          <path d="M50,15 C45,-15 48,-25 50,-28 C52,-25 55,-15 50,15 Z" fill="#54d9ff"/>
+          <path d="M42,16 C30,-8 28,-18 30,-22 C34,-18 40,-8 44,16 Z" fill="#5bd69b"/>
+          <path d="M58,16 C70,-8 72,-18 70,-22 C66,-18 60,-8 56,16 Z" fill="#ff5f9e"/>
+        </g>
+        <ellipse cx="38" cy="45" rx="8" ry="6" fill="#fff" stroke="#211d3b" stroke-width="2"/>
+        <circle cx="38" cy="45" r="3" fill="#211d3b"/>
+        <ellipse cx="62" cy="45" rx="8" ry="6" fill="#fff" stroke="#211d3b" stroke-width="2"/>
+        <circle cx="62" cy="45" r="3" fill="#211d3b"/>
+        <polygon points="50,48 45,68 55,68" fill="#ffd75e"/>
+        <path id="maskMouth" d="M35,85 Q50,100 65,85 Z" fill="#ffffff" stroke="#211d3b" stroke-width="2"/>
+        <g id="maskMustache" style="display:none">
+          <path d="M50,75 Q30,68 20,80 Q35,78 50,75 Z" fill="#211d3b"/>
+          <path d="M50,75 Q70,68 80,80 Q65,78 50,75 Z" fill="#211d3b"/>
+        </g>
+      </svg>
+    </div>
+    <div class="mask-controls">
+      <button class="mask-tag selected" id="optDiablo" type="button">Diablada</button>
+      <button class="mask-tag" id="optMoreno" type="button">Morenada</button>
+      <button class="mask-tag" id="optUkuku" type="button">Ukuku</button>
+      <button class="mask-tag" id="optFeathers" type="button">+ Plumas</button>
+      <button class="mask-tag" id="optMustache" type="button">+ Bigote</button>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:center;margin-top:14px">
+      <button class="pill pill-bored" id="danceMaskBtn" type="button">✨ ¡Hacerla bailar!</button>
+      <button class="close" id="closeMask" type="button" style="margin-top:0">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: TRIVIA ANDINA -->
+<div class="modal" id="triviaModal">
+  <div class="modal-card">
+    <div style="font-size:48px">❓🌟</div>
+    <h3 id="triviaTitle">Trivia del Carnaval</h3>
+    <p id="triviaQuestion" style="font-size:16px;font-weight:900;margin:16px 0">¿Qué significa la palabra quechua "Ayni"?</p>
+    <div id="triviaOptions" style="display:grid;gap:8px;margin-bottom:14px"></div>
+    <div id="triviaFeedback" style="font-weight:900;min-height:24px"></div>
+    <button class="close" id="closeTrivia" type="button">Cerrar</button>
+  </div>
+</div>
+
+<!-- LIENZO DE ESPUMA Y PINTURA VIRTUAL A PANTALLA COMPLETA -->
+<canvas id="foamCanvas"></canvas>
+<div class="foam-bar" id="foamBar">
+  <span style="font-weight:1000;font-size:13px">🫧 Pasa el dedo o ratón para rociar:</span>
+  <input type="color" id="foamColor" value="#ff5f9e" style="border:none;border-radius:50%;width:32px;height:32px;cursor:pointer">
+  <button class="pill" id="clearFoamBtn" type="button">🧹 Limpiar</button>
+  <button class="pill pill-bored" id="closeFoamBtn" type="button">❌ Salir</button>
+</div>
+
+<!-- TOAST FLOTANTE -->
 <div class="toast" id="toast">⭐ ¡Estrella encontrada!</div>
 
 <script>
 (()=>{
- const scenes=[...document.querySelectorAll('.scene')],thumbs=document.getElementById('thumbs'),progress=document.getElementById('progress'),count=document.getElementById('count'),starsEl=document.getElementById('stars');
- let current=0;const found=Array.from({length:scenes.length},()=>new Set());
- const data=[
-  {fact:'El carnaval abre el camino para el encuentro de Carlos y Visitación.',word:'Ande: nombre usado para referirnos a la gran región montañosa donde se desarrolla la historia.',magic:'¡Los colores del carnaval despiertan!'},
-  {fact:'Carlos recupera fuerzas y decide luchar por el amor que siente.',word:'Convicción: una idea o decisión de la que una persona está muy segura.',magic:'El corazón de la aventura empieza a brillar.'},
-  {fact:'La fiesta parece alegre, pero también sirve para ocultar un engaño.',word:'Carnaval: celebración popular con música, baile y color.',magic:'¡Confeti virtual! La fiesta cobra vida.'},
-  {fact:'El engaño se hace más evidente y los personajes buscan entender lo que sucede.',word:'Engaño: hacer creer a alguien algo que no es verdad.',magic:'Una lupa mágica ilumina la escena.'},
-  {fact:'La verdad sale a la luz y las decisiones de los personajes cambian.',word:'Verdad: aquello que corresponde con los hechos.',magic:'¡Una ráfaga de luz recorre la página!'},
-  {fact:'Visitación es llevada contra su voluntad y Carlos decide ir tras ella.',word:'Rescate: acción de liberar o recuperar a alguien.',magic:'¡Comienza la misión de rescate!'},
-  {fact:'Carlos y Visitación se reencuentran y enfrentan juntos el conflicto.',word:'Unión: encuentro de personas que permanecen juntas para lograr algo.',magic:'🎉 ¡Final desbloqueado! ¡Amor en Carnaval!'}
- ];
- function beep(freq=520,dur=.07){try{const A=window.AudioContext||window.webkitAudioContext;if(!A)return;const a=new A(),o=a.createOscillator(),g=a.createGain();o.frequency.value=freq;o.type='sine';g.gain.value=.035;o.connect(g);g.connect(a.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,a.currentTime+dur);o.stop(a.currentTime+dur)}catch(e){}}
- function particles(scene){const box=scene.querySelector('.particles');if(!box||box.children.length)return;for(let i=0;i<18;i++){const p=document.createElement('i');p.className='particle';p.style.left=Math.random()*100+'%';p.style.top=(Math.random()*20-15)+'%';p.style.setProperty('--x',((Math.random()-.5)*180)+'px');p.style.animationDelay=-Math.random()*5+'s';p.style.animationDuration=4+Math.random()*5+'s';box.appendChild(p)}}
- function sparkle(canvas,source){for(let i=0;i<14;i++){const s=document.createElement('i');s.className='spark';s.style.cssText='position:absolute;z-index:7;pointer-events:none;width:16px;height:16px;border-radius:50%;background:#fff;left:'+source.offsetLeft+'px;top:'+source.offsetTop+'px;animation:spark .75s ease-out forwards;--dx:'+((Math.random()-.5)*150)+'px;--dy:'+((Math.random()-.5)*150)+'px';canvas.appendChild(s);setTimeout(()=>s.remove(),800)}}
- const style=document.createElement('style');style.textContent='@keyframes spark{to{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0}}';document.head.appendChild(style);
- function makeStars(scene){const canvas=scene.querySelector('.page-canvas');canvas.querySelectorAll('.hotspot').forEach(x=>x.remove());const safePositions={1:[[4,5],[96,5],[96,95]],3:[[4,5],[96,5],[96,95]],4:[[4,5],[96,5],[4,95]],5:[[4,5],[96,5],[96,95]],6:[[4,5],[96,5],[4,95]],7:[[4,5],[96,5],[96,95]],8:[[4,5],[96,5],[4,95]]};(safePositions[Number(canvas.dataset.page)]||[[4,5],[96,5],[96,95]]).forEach((pos,k)=>{const b=document.createElement('button');b.type='button';b.className='hotspot';b.dataset.star=k;b.setAttribute('aria-label','Estrella escondida '+(k+1));b.style.left=pos[0]+'%';b.style.top=pos[1]+'%';b.innerHTML='<span>⭐</span>';b.addEventListener('click',ev=>{ev.stopPropagation();if(found[current].has(k))return;found[current].add(k);b.classList.add('found');b.innerHTML='<span>✓</span>';beep(760+k*100,.09);sparkle(canvas,b);updateStars();showToast('⭐ ¡Estrella encontrada!');if(found[current].size===3){unlockBadge(current);showToast('🏆 ¡Misión de página completada!')}});canvas.appendChild(b)});found[current].forEach(k=>{const b=canvas.querySelector('[data-star="'+k+'"]');if(b){b.classList.add('found');b.innerHTML='<span>✓</span>'}})}
- function updateStars(){const n=found[current].size;starsEl.textContent=[0,1,2].map(i=>i<n?'★':'☆').join(' ');const total=found.reduce((a,s)=>a+s.size,0);document.getElementById('hudSub').textContent=total+'/'+(scenes.length*3)+' estrellas encontradas · '+n+'/3 en esta página'}
- function unlockBadge(i){const b=document.getElementById(i<2?'badge1':i<5?'badge2':'badge3');b.classList.remove('locked')}
- function show(i,scroll=true){current=Math.max(0,Math.min(scenes.length-1,i));scenes.forEach((s,j)=>s.classList.toggle('active',j===current));[...thumbs.children].forEach((b,j)=>b.classList.toggle('active',j===current));count.textContent=(current+1)+' / '+scenes.length;progress.style.width=((current+1)/scenes.length*100)+'%';document.querySelector('.hud-title').textContent='🧭 Página '+(current+1)+': '+scenes[current].dataset.title;document.getElementById('prev').disabled=current===0;document.getElementById('next').disabled=current===scenes.length-1;makeStars(scenes[current]);updateStars();if(scroll)document.getElementById('aventura').scrollIntoView({behavior:'smooth',block:'start'})}
- function showModal(icon,title,text){document.getElementById('modalIcon').textContent=icon;document.getElementById('modalTitle').textContent=title;document.getElementById('modalText').textContent=text;document.getElementById('modal').classList.add('open');beep(660,.08)}
- function showToast(text){const t=document.getElementById('toast');t.textContent=text;t.classList.add('show');clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove('show'),1600)}
- function confetti(){for(let i=0;i<70;i++){const c=document.createElement('i');c.className='confetti';c.style.left=Math.random()*100+'vw';c.style.animationDelay=Math.random()*.25+'s';c.style.background=['#ff5f9e','#ffd75e','#54d9ff','#6d4cff','#5bd69b'][i%5];document.body.appendChild(c);setTimeout(()=>c.remove(),1800)}}
- scenes.forEach((s,i)=>{particles(s);const b=document.createElement('button');b.className='thumb';b.type='button';const img=s.querySelector('img');const im=document.createElement('img');im.src=img.src;im.alt='';b.appendChild(im);const n=document.createElement('b');n.textContent=String(i+1).padStart(2,'0');b.appendChild(n);b.addEventListener('click',()=>show(i,true));thumbs.appendChild(b);s.querySelector('.fact').addEventListener('click',()=>showModal('💡','Pista de la página',data[i].fact));s.querySelector('.word').addEventListener('click',()=>showModal('📚','Palabra para aprender',data[i].word));s.querySelector('.magic').addEventListener('click',()=>{const canvas=s.querySelector('.page-canvas');sparkle(canvas,{offsetLeft:canvas.clientWidth/2,offsetTop:canvas.clientHeight/2});if(i===scenes.length-1)confetti();showToast(data[i].magic);beep(840,.1)});s.querySelector('.page-canvas').addEventListener('click',e=>{if(e.target.closest('.hotspot'))return;sparkle(s.querySelector('.page-canvas'),{offsetLeft:e.offsetX-8,offsetTop:e.offsetY-8});beep(420,.05)});s.querySelectorAll('.word-chip').forEach(ch=>ch.addEventListener('click',()=>{showModal('🌿','Palabra andina',ch.dataset.word)}))});
- document.getElementById('start').addEventListener('click',()=>{const btn=document.getElementById('start');btn.classList.remove('jump');void btn.offsetWidth;btn.classList.add('jump');beep(620,.1);setTimeout(()=>{document.getElementById('cover').style.display='none';document.getElementById('aventura').classList.add('open');show(0,false);window.scrollTo({top:0,behavior:'smooth'})},480)});
- document.getElementById('backCover').addEventListener('click',()=>{document.getElementById('aventura').classList.remove('open');document.getElementById('cover').style.display='grid';window.scrollTo({top:0,behavior:'smooth'})});
- document.getElementById('prev').addEventListener('click',()=>show(current-1));document.getElementById('next').addEventListener('click',()=>show(current+1));
- document.getElementById('listen').addEventListener('click',()=>{if('speechSynthesis' in window){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(scenes[current].dataset.text);u.lang='es-ES';u.rate=.92;u.pitch=1.08;speechSynthesis.speak(u);showToast('🔊 Escuchando la página…')}else showToast('Tu navegador no tiene lectura de voz.')});
- document.getElementById('fullscreen').addEventListener('click',()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()});
- document.getElementById('reset').addEventListener('click',()=>{found.forEach(s=>s.clear());document.querySelectorAll('.badge').forEach(b=>b.classList.add('locked'));show(current,false);showToast('↺ Estrellas reiniciadas')});
- document.getElementById('close').addEventListener('click',()=>document.getElementById('modal').classList.remove('open'));document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')document.getElementById('modal').classList.remove('open')});
- document.addEventListener('keydown',e=>{if(document.getElementById('aventura').classList.contains('open')){if(e.key==='ArrowRight')show(current+1);if(e.key==='ArrowLeft')show(current-1)}if(e.key==='Escape')document.getElementById('modal').classList.remove('open')});
- show(0,false);
+  // ELEMENTOS DOM
+  const scenes=[...document.querySelectorAll('.scene')];
+  const thumbs=document.getElementById('thumbs');
+  const progress=document.getElementById('progress');
+  const count=document.getElementById('count');
+  const starsEl=document.getElementById('stars');
+  const stickersGrid=document.getElementById('stickersGrid');
+  let current=0;
+
+  // PERSISTENCIA LOCALSTORAGE
+  const savedStars=JSON.parse(localStorage.getItem('carnaval_stars')||'[]');
+  const found=Array.from({length:scenes.length},(_,i)=>new Set(savedStars[i]||[]));
+  const unlockedStickers=new Set(JSON.parse(localStorage.getItem('carnaval_stickers')||'[]'));
+  const discoveredClues=new Set(JSON.parse(localStorage.getItem('carnaval_clues')||'[]'));
+
+  // SINTETIZADOR DE AUDIO PROCEDURAL (WEB AUDIO API)
+  let audioCtx=null;
+  function getAudio(){
+    if(!audioCtx){
+      const AudioContextClass=window.AudioContext||window.webkitAudioContext;
+      if(AudioContextClass) audioCtx=new AudioContextClass();
+    }
+    if(audioCtx && audioCtx.state==='suspended') audioCtx.resume();
+    return audioCtx;
+  }
+
+  function beep(freq=520,dur=.07,type='sine'){
+    try{
+      const a=getAudio();if(!a)return;
+      const o=a.createOscillator(),g=a.createGain();
+      o.frequency.value=freq;o.type=type;
+      g.gain.value=.035;
+      o.connect(g);g.connect(a.destination);
+      o.start();
+      g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+dur);
+      o.stop(a.currentTime+dur);
+    }catch(e){}
+  }
+
+  // TINTINEO SUAVE DE VARITA MÁGICA
+  function playSoftChime(){
+    try{
+      const a=getAudio();if(!a)return;
+      const osc=a.createOscillator(),gain=a.createGain();
+      const notes=[1046.5, 1174.66, 1318.51, 1567.98, 1760]; // Escala pentatónica aguda
+      const freq=notes[Math.floor(Math.random()*notes.length)];
+      osc.type='sine';
+      osc.frequency.setValueAtTime(freq,a.currentTime);
+      gain.gain.setValueAtTime(.015,a.currentTime);
+      gain.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.18);
+      osc.connect(gain);gain.connect(a.destination);
+      osc.start();osc.stop(a.currentTime+.19);
+    }catch(e){}
+  }
+
+  // SONIDO DE FUEGOS ARTIFICIALES (COHETE + EXPLOSIÓN)
+  function playFireworkRocket(){
+    try{
+      const a=getAudio();if(!a)return;
+      const o=a.createOscillator(),g=a.createGain();
+      o.type='sine';
+      o.frequency.setValueAtTime(260,a.currentTime);
+      o.frequency.exponentialRampToValueAtTime(1400,a.currentTime+.14);
+      g.gain.setValueAtTime(.04,a.currentTime);
+      g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.14);
+      o.connect(g);g.connect(a.destination);
+      o.start();o.stop(a.currentTime+.15);
+    }catch(e){}
+  }
+
+  function playFireworkExplosion(){
+    try{
+      const a=getAudio();if(!a)return;
+      const o=a.createOscillator(),g=a.createGain();
+      o.frequency.setValueAtTime(140,a.currentTime);
+      o.frequency.exponentialRampToValueAtTime(30,a.currentTime+.28);
+      g.gain.setValueAtTime(.25,a.currentTime);
+      g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.3);
+      o.connect(g);g.connect(a.destination);
+      o.start();o.stop(a.currentTime+.31);
+    }catch(e){}
+  }
+
+  // ACORDE TRIUNFAL DE SECRETO DESCUBIERTO
+  function playSecretChord(){
+    try{
+      const a=getAudio();if(!a)return;
+      [523.25, 659.25, 783.99, 1046.5].forEach((f,i)=>{
+        setTimeout(()=>{
+          const o=a.createOscillator(),g=a.createGain();
+          o.type='triangle';
+          o.frequency.setValueAtTime(f,a.currentTime);
+          g.gain.setValueAtTime(.04,a.currentTime);
+          g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.35);
+          o.connect(g);g.connect(a.destination);
+          o.start();o.stop(a.currentTime+.36);
+        },i*65);
+      });
+    }catch(e){}
+  }
+
+  // INSTRUMENTOS ANDINOS SINTETIZADOS
+  function playDrumBass(){
+    try{
+      const a=getAudio();if(!a)return;
+      const osc=a.createOscillator(),gain=a.createGain();
+      osc.frequency.setValueAtTime(110,a.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(32,a.currentTime+.22);
+      gain.gain.setValueAtTime(.35,a.currentTime);
+      gain.gain.exponentialRampToValueAtTime(.001,a.currentTime+.25);
+      osc.connect(gain);gain.connect(a.destination);
+      osc.start();osc.stop(a.currentTime+.26);
+    }catch(e){}
+  }
+
+  function playChajchas(){
+    try{
+      const a=getAudio();if(!a)return;
+      for(let i=0;i<3;i++){
+        setTimeout(()=>{
+          const osc=a.createOscillator(),gain=a.createGain();
+          osc.type='triangle';
+          osc.frequency.setValueAtTime(1800+Math.random()*1200,a.currentTime);
+          gain.gain.setValueAtTime(.06,a.currentTime);
+          gain.gain.exponentialRampToValueAtTime(.001,a.currentTime+.06);
+          osc.connect(gain);gain.connect(a.destination);
+          osc.start();osc.stop(a.currentTime+.07);
+        },i*22);
+      }
+    }catch(e){}
+  }
+
+  function playQuenaNote(freq=587,dur=.35){
+    try{
+      const a=getAudio();if(!a)return;
+      const osc=a.createOscillator(),gain=a.createGain();
+      osc.type='triangle';
+      osc.frequency.setValueAtTime(freq,a.currentTime);
+      gain.gain.setValueAtTime(.001,a.currentTime);
+      gain.gain.linearRampToValueAtTime(.12,a.currentTime+.06);
+      gain.gain.exponentialRampToValueAtTime(.001,a.currentTime+dur);
+      osc.connect(gain);gain.connect(a.destination);
+      osc.start();osc.stop(a.currentTime+dur+.02);
+    }catch(e){}
+  }
+
+  // MÚSICA AMBIENTAL ANDINA PROCEDURAL (PENTATÓNICA EN BUCLE)
+  let musicTimer=null;let musicStep=0;let isMusicOn=false;
+  const pentaNotes=[440,523.25,587.33,659.25,783.99,880];
+  const melody=[0,1,2,3, 2,1,0,-1, 3,4,3,2, 1,2,0,-1];
+
+  function toggleMusic(){
+    isMusicOn=!isMusicOn;
+    const btn=document.getElementById('musicBtn');
+    if(isMusicOn){
+      btn.textContent='🎵 Música: ON';
+      btn.classList.add('active');
+      startAndeanMusic();
+      showToast('🎵 Música andina activada');
+    }else{
+      btn.textContent='🎵 Música: OFF';
+      btn.classList.remove('active');
+      stopAndeanMusic();
+      showToast('Música pausada');
+    }
+  }
+
+  function startAndeanMusic(){
+    getAudio();
+    if(musicTimer) clearInterval(musicTimer);
+    musicTimer=setInterval(()=>{
+      if(!isMusicOn) return;
+      const idx=melody[musicStep % melody.length];
+      if(idx>=0){
+        playQuenaNote(pentaNotes[idx],.32);
+      }
+      if(musicStep % 2===0){
+        playDrumBass();
+      }else if(musicStep % 4===3){
+        playChajchas();
+      }
+      musicStep++;
+    },380);
+  }
+
+  function stopAndeanMusic(){
+    if(musicTimer){clearInterval(musicTimer);musicTimer=null;}
+  }
+
+  // DATOS DE HISTORIA
+  const data=[
+    {fact:'El carnaval abre el camino para el encuentro de Carlos y Visitación.',word:'Ande: La gran cordillera montañosa donde nacen estas tradiciones centenarias.',magic:'¡Los colores del carnaval andino despiertan!'},
+    {fact:'Carlos recupera fuerzas y decide luchar por el amor que siente.',word:'Convicción: La fuerza interna que no se rinde ante la adversidad.',magic:'El corazón de la aventura empieza a brillar con valor.'},
+    {fact:'La fiesta parece alegre, pero también sirve para ocultar un engaño.',word:'Carnaval: Celebración donde la música, el baile y las máscaras son protagonistas.',magic:'¡Confeti virtual! La fiesta cobra vida.'},
+    {fact:'El engaño se hace más evidente y los personajes buscan entender lo que sucede.',word:'Engaño: Acción de ocultar la verdad con falsas apariencias.',magic:'Una lupa mágica ilumina las pistas.'},
+    {fact:'La verdad sale a la luz y las decisiones de los personajes cambian.',word:'Verdad: Aquello que es transparente y disipa cualquier duda.',magic:'¡Una ráfaga de luz dorada recorre la página!'},
+    {fact:'Visitación es llevada contra su voluntad y Carlos decide ir tras ella.',word:'Rescate: Acción heroica de liberar y proteger a quien amamos.',magic:'¡Comienza la gran misión de rescate en las montañas!'},
+    {fact:'Carlos y Visitación se reencuentran y enfrentan juntos el conflicto.',word:'Unión: La fuerza de corazones que caminan hacia el mismo destino.',magic:'🎉 ¡Final desbloqueado! ¡El amor triunfa en el Carnaval!'}
+  ];
+
+  // COLECCIONABLES (STICKERS)
+  const stickerData={
+    condor:{title:'El Cóndor Andino',desc:'El rey de los cielos andinos, símbolo de libertad, sabiduría y guardián de las montañas.'},
+    torito:{title:'Torito de Pucará',desc:'Artesanía tradicional colocada en los techos andinos para la protección, felicidad y prosperidad del hogar.'},
+    diablada:{title:'Máscara de Diablada',desc:'Representa la lucha del bien y el mal en las danzas tradicionales del altiplano.'},
+    quena:{title:'Quena Sagrada',desc:'Instrumento de viento milenario que imita el canto del viento entre los cañones andinos.'},
+    inti:{title:'Sol Inti',desc:'El dios solar, máxima deidad dadora de calor, cosecha y alegría a los pueblos andinos.'},
+    chakana:{title:'Chakana Andina',desc:'La cruz escalonada que une los tres mundos: Hanan Pacha (cielo), Kay Pacha (tierra) y Uku Pacha (subterráneo).'}
+  };
+
+  function unlockSticker(id){
+    if(unlockedStickers.has(id)) return;
+    unlockedStickers.add(id);
+    localStorage.setItem('carnaval_stickers',JSON.stringify([...unlockedStickers]));
+    renderStickers();
+    showToast('🎒 ¡Nuevo recuerdo desbloqueado: '+stickerData[id].title+'!');
+    confetti();
+  }
+
+  function renderStickers(){
+    document.querySelectorAll('.sticker-item').forEach(el=>{
+      const id=el.dataset.id;
+      if(unlockedStickers.has(id)){
+        el.classList.remove('locked');
+      }else{
+        el.classList.add('locked');
+      }
+    });
+  }
+
+  document.querySelectorAll('.sticker-item').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const id=el.dataset.id;
+      if(unlockedStickers.has(id)){
+        showModal('🎒',stickerData[id].title,stickerData[id].desc);
+        beep(740,.09);
+      }else{
+        showToast('🔒 Encuentra estrellas y supera trivias para desbloquear.');
+      }
+    });
+  });
+
+  // PARTICULAS FLOTANTES
+  function particles(scene){
+    const box=scene.querySelector('.particles');
+    if(!box||box.children.length)return;
+    for(let i=0;i<18;i++){
+      const p=document.createElement('i');
+      p.className='particle';
+      p.style.left=Math.random()*100+'%';
+      p.style.top=(Math.random()*20-15)+'%';
+      p.style.setProperty('--x',((Math.random()-.5)*180)+'px');
+      p.style.animationDelay=-Math.random()*5+'s';
+      p.style.animationDuration=4+Math.random()*5+'s';
+      box.appendChild(p);
+    }
+  }
+
+  // CHISPAS MÁGICAS
+  function sparkle(canvas,source){
+    for(let i=0;i<14;i++){
+      const s=document.createElement('i');
+      s.className='spark';
+      s.style.cssText='position:absolute;z-index:7;pointer-events:none;width:16px;height:16px;border-radius:50%;background:#fff;left:'+source.offsetLeft+'px;top:'+source.offsetTop+'px;animation:spark .75s ease-out forwards;--dx:'+((Math.random()-.5)*150)+'px;--dy:'+((Math.random()-.5)*150)+'px';
+      canvas.appendChild(s);
+      setTimeout(()=>s.remove(),800);
+    }
+  }
+  const sparkStyle=document.createElement('style');
+  sparkStyle.textContent='@keyframes spark{to{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0}}';
+  document.head.appendChild(sparkStyle);
+
+  // MODO LINTERNA SECRETA NOCTURNA
+  let isFlashlightOn=false;
+  const flashlightBtn=document.getElementById('flashlightBtn');
+  flashlightBtn.addEventListener('click',toggleFlashlight);
+
+  function toggleFlashlight(){
+    isFlashlightOn=!isFlashlightOn;
+    document.querySelectorAll('.page-canvas').forEach(c=>c.classList.toggle('flashlight-active',isFlashlightOn));
+    flashlightBtn.classList.toggle('active',isFlashlightOn);
+    if(isFlashlightOn){
+      flashlightBtn.textContent='🔦 Linterna: ON';
+      showToast('🔦 Modo Linterna Nocturna: ¡Busca los secretos ocultos!');
+      playSecretChord();
+    }else{
+      flashlightBtn.textContent='🔦 Linterna: OFF';
+      showToast('Modo de día restaurado');
+      beep(480,.08);
+    }
+  }
+
+  function checkSecretClues(canvas,fx,fy){
+    canvas.querySelectorAll('.secret-clue').forEach(clue=>{
+      const cx=clue.offsetLeft+clue.offsetWidth/2;
+      const cy=clue.offsetTop+clue.offsetHeight/2;
+      const dist=Math.hypot(fx-cx,fy-cy);
+      if(dist<85){
+        if(!clue.classList.contains('revealed')){
+          clue.classList.add('revealed');
+          const name=clue.dataset.name;
+          const key=canvas.dataset.page+'-'+name;
+          if(!discoveredClues.has(key)){
+            discoveredClues.add(key);
+            localStorage.setItem('carnaval_clues',JSON.stringify([...discoveredClues]));
+            playSecretChord();
+            showToast('🔦 ¡Descubriste en la noche: '+name+'!');
+            confetti();
+          }
+        }
+      }else{
+        clue.classList.remove('revealed');
+      }
+    });
+  }
+
+  // FUEGOS ARTIFICIALES ANDINOS (DOBLE CLIC)
+  function launchFirework(canvas,targetX,targetY){
+    playFireworkRocket();
+    setTimeout(()=>{
+      playFireworkExplosion();
+      const flash=document.createElement('div');
+      flash.className='firework-flash';
+      flash.style.left=targetX+'px';
+      flash.style.top=targetY+'px';
+      canvas.appendChild(flash);
+      setTimeout(()=>flash.remove(),400);
+
+      const colors=['#ff2a7a','#ffd75e','#54d9ff','#6d4cff','#5bd69b','#ffffff','#ff8a3d'];
+      for(let i=0;i<28;i++){
+        const p=document.createElement('i');
+        p.className='firework-spark';
+        const angle=(i/28)*Math.PI*2+(Math.random()-.5)*.2;
+        const dist=45+Math.random()*80;
+        const col=colors[i%colors.length];
+        p.style.cssText=`left:${targetX}px;top:${targetY}px;background:${col};box-shadow:0 0 6px ${col};--tx:${Math.cos(angle)*dist}px;--ty:${Math.sin(angle)*dist+18}px`;
+        canvas.appendChild(p);
+        setTimeout(()=>p.remove(),800);
+      }
+      showToast('🎆 ¡Fuegos artificiales de carnaval!');
+    },120);
+  }
+
+  // ESTELA MÁGICA DE VARITA (PIXAR FAIRY DUST) — SIN MAREOS NI SACUDIDAS
+  let lastChimeTime=0;
+  function initMagicWand(canvas){
+    let throttle=0;
+    canvas.addEventListener('pointermove',e=>{
+      const rect=canvas.getBoundingClientRect();
+      const x=e.clientX-rect.left;
+      const y=e.clientY-rect.top;
+
+      if(isFlashlightOn){
+        canvas.style.setProperty('--fx',x+'px');
+        canvas.style.setProperty('--fy',y+'px');
+        checkSecretClues(canvas,x,y);
+        return;
+      }
+
+      throttle++;
+      if(throttle % 2 !== 0) return;
+
+      const spark=document.createElement('i');
+      spark.className='wand-spark';
+      const colors=['#ffd75e','#54d9ff','#ff5f9e','#5bd69b','#ffffff'];
+      const col=colors[Math.floor(Math.random()*colors.length)];
+      const size=5+Math.random()*6;
+      spark.style.cssText=`left:${x}px;top:${y}px;width:${size}px;height:${size}px;background:${col};color:${col};box-shadow:0 0 6px ${col};--mx:${(Math.random()-.5)*35}px;--my:${10+Math.random()*25}px`;
+      canvas.appendChild(spark);
+      setTimeout(()=>spark.remove(),550);
+
+      const now=Date.now();
+      if(now-lastChimeTime>300){
+        lastChimeTime=now;
+        playSoftChime();
+      }
+    });
+
+    // FUEGOS ARTIFICIALES CON DOBLE CLIC
+    canvas.addEventListener('dblclick',e=>{
+      const rect=canvas.getBoundingClientRect();
+      const x=e.clientX-rect.left;
+      const y=e.clientY-rect.top;
+      launchFirework(canvas,x,y);
+    });
+  }
+
+  // ESTRELLAS INTERACTIVAS
+  function makeStars(scene){
+    const canvas=scene.querySelector('.page-canvas');
+    canvas.querySelectorAll('.hotspot').forEach(x=>x.remove());
+    const safePositions={
+      1:[[5,6],[95,6],[95,94]],
+      2:[[5,6],[95,6],[95,94]],
+      3:[[5,6],[95,6],[5,94]],
+      4:[[5,6],[95,6],[95,94]],
+      5:[[5,6],[95,6],[5,94]],
+      6:[[5,6],[95,6],[95,94]],
+      7:[[5,6],[95,6],[5,94]]
+    };
+    const pageIndex=Number(scene.dataset.n);
+    (safePositions[pageIndex]||[[5,6],[95,6],[95,94]]).forEach((pos,k)=>{
+      const b=document.createElement('button');
+      b.type='button';
+      b.className='hotspot';
+      b.dataset.star=k;
+      b.setAttribute('aria-label','Estrella escondida '+(k+1));
+      b.style.left=pos[0]+'%';
+      b.style.top=pos[1]+'%';
+      b.innerHTML='<span>⭐</span>';
+      b.addEventListener('click',ev=>{
+        ev.stopPropagation();
+        if(found[current].has(k))return;
+        found[current].add(k);
+        saveProgress();
+        b.classList.add('found');
+        b.innerHTML='<span>✓</span>';
+        beep(760+k*100,.09);
+        sparkle(canvas,b);
+        updateStars();
+        showToast('⭐ ¡Estrella encontrada!');
+        if(found[current].size===3){
+          unlockBadge(current);
+          showToast('🏆 ¡Misión de página completada!');
+          const stList=['condor','torito','diablada','quena','inti','chakana'];
+          if(stList[current]) unlockSticker(stList[current]);
+        }
+      });
+      canvas.appendChild(b);
+    });
+
+    found[current].forEach(k=>{
+      const b=canvas.querySelector('[data-star="'+k+'"]');
+      if(b){b.classList.add('found');b.innerHTML='<span>✓</span>';}
+    });
+  }
+
+  function saveProgress(){
+    const arr=found.map(s=>[...s]);
+    localStorage.setItem('carnaval_stars',JSON.stringify(arr));
+  }
+
+  function updateStars(){
+    const n=found[current].size;
+    starsEl.textContent=[0,1,2].map(i=>i<n?'★':'☆').join(' ');
+    const total=found.reduce((a,s)=>a+s.size,0);
+    document.getElementById('hudSub').textContent=total+'/'+(scenes.length*3)+' estrellas encontradas · '+n+'/3 en esta página';
+  }
+
+  function unlockBadge(i){
+    const b=document.getElementById(i<2?'badge1':i<5?'badge2':'badge3');
+    b.classList.remove('locked');
+  }
+
+  // NAVEGACIÓN ENTRE ESCENAS
+  function show(i,scroll=true){
+    current=Math.max(0,Math.min(scenes.length-1,i));
+    scenes.forEach((s,j)=>s.classList.toggle('active',j===current));
+    [...thumbs.children].forEach((b,j)=>b.classList.toggle('active',j===current));
+    count.textContent=(current+1)+' / '+scenes.length;
+    progress.style.width=((current+1)/scenes.length*100)+'%';
+    document.querySelector('.hud-title').textContent='🧭 Página '+(current+1)+': '+scenes[current].dataset.title;
+    document.getElementById('prev').disabled=current===0;
+    document.getElementById('next').disabled=current===scenes.length-1;
+    makeStars(scenes[current]);
+    updateStars();
+    if(scroll) document.getElementById('aventura').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  function showModal(icon,title,text){
+    document.getElementById('modalIcon').textContent=icon;
+    document.getElementById('modalTitle').textContent=title;
+    document.getElementById('modalText').textContent=text;
+    document.getElementById('modal').classList.add('open');
+    beep(660,.08);
+  }
+
+  function showToast(text){
+    const t=document.getElementById('toast');
+    t.textContent=text;
+    t.classList.add('show');
+    clearTimeout(window.__toast);
+    window.__toast=setTimeout(()=>t.classList.remove('show'),1800);
+  }
+
+  function confetti(){
+    for(let i=0;i<70;i++){
+      const c=document.createElement('i');
+      c.className='confetti';
+      c.style.left=Math.random()*100+'vw';
+      c.style.animationDelay=Math.random()*.25+'s';
+      c.style.background=['#ff5f9e','#ffd75e','#54d9ff','#6d4cff','#5bd69b'][i%5];
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(),1800);
+    }
+  }
+
+  // INICIALIZACIÓN DE ESCENAS
+  scenes.forEach((s,i)=>{
+    particles(s);
+    const canvas=s.querySelector('.page-canvas');
+    if(canvas) initMagicWand(canvas);
+
+    // Miniatura navegable
+    const b=document.createElement('button');
+    b.className='thumb';
+    b.type='button';
+    const img=s.querySelector('img');
+    const im=document.createElement('img');
+    im.src=img.src;im.alt='';
+    b.appendChild(im);
+    const n=document.createElement('b');
+    n.textContent=String(i+1).padStart(2,'0');
+    b.appendChild(n);
+    b.addEventListener('click',()=>show(i,true));
+    thumbs.appendChild(b);
+
+    // Botones de acción estándar
+    s.querySelector('.fact')?.addEventListener('click',()=>showModal('💡','Pista de la página',data[i].fact));
+    s.querySelector('.word')?.addEventListener('click',()=>showModal('📚','Palabra para aprender',data[i].word));
+    s.querySelector('.magic')?.addEventListener('click',()=>{
+      sparkle(canvas,{offsetLeft:canvas.clientWidth/2,offsetTop:canvas.clientHeight/2});
+      if(i===scenes.length-1) confetti();
+      showToast(data[i].magic);
+      beep(840,.1);
+    });
+
+    // Bocadillos de cómic con síntesis de voz
+    s.querySelectorAll('.dialog-pin').forEach(pin=>{
+      pin.addEventListener('click',ev=>{
+        ev.stopPropagation();
+        const text=pin.dataset.voice;
+        showToast('💬 '+text);
+        beep(720,.08);
+        if('speechSynthesis' in window){
+          speechSynthesis.cancel();
+          const u=new SpeechSynthesisUtterance(text);
+          u.lang='es-ES';u.rate=1;u.pitch=1.1;
+          speechSynthesis.speak(u);
+        }
+      });
+    });
+
+    // Chips de vocabulario
+    s.querySelectorAll('.word-chip').forEach(ch=>{
+      ch.addEventListener('click',()=>showModal('🌿','Palabra andina',ch.dataset.word));
+    });
+  });
+
+  // DISPARADORES DE ACTIVIDADES DESDE LAS ESCENAS
+  document.querySelectorAll('.minigame-trigger').forEach(b=>b.addEventListener('click',openDrumsModal));
+  document.querySelectorAll('.mask-trigger').forEach(b=>b.addEventListener('click',openMaskModal));
+  document.querySelectorAll('.trivia-trigger').forEach(b=>b.addEventListener('click',openTriviaModal));
+  document.querySelectorAll('.foam-trigger').forEach(b=>b.addEventListener('click',startFoamFun));
+
+  // BOTÓN SALVAVIDAS ANTI-ABURRIMIENTO
+  const boredModal=document.getElementById('boredModal');
+  document.getElementById('boredBtn').addEventListener('click',()=>{
+    boredModal.classList.add('open');
+    beep(580,.1);
+  });
+  document.getElementById('closeBored').addEventListener('click',()=>boredModal.classList.remove('open'));
+
+  // RUTAS DESDE EL CENTRO ANTI-ABURRIMIENTO
+  document.getElementById('openDrums').addEventListener('click',()=>{boredModal.classList.remove('open');openDrumsModal();});
+  document.getElementById('openMask').addEventListener('click',()=>{boredModal.classList.remove('open');openMaskModal();});
+  document.getElementById('openTrivia').addEventListener('click',()=>{boredModal.classList.remove('open');openTriviaModal();});
+  document.getElementById('openFoam').addEventListener('click',()=>{boredModal.classList.remove('open');startFoamFun();});
+  document.getElementById('randomSurprise').addEventListener('click',()=>{
+    boredModal.classList.remove('open');
+    const actions=[openDrumsModal,openMaskModal,openTriviaModal,startFoamFun];
+    actions[Math.floor(Math.random()*actions.length)]();
+  });
+
+  // MINIJUEGO: TAMBORES Y RITMO
+  const drumModal=document.getElementById('drumModal');
+  function openDrumsModal(){drumModal.classList.add('open');getAudio();}
+  document.getElementById('closeDrum').addEventListener('click',()=>drumModal.classList.remove('open'));
+
+  const drumBass=document.getElementById('drumBass');
+  const drumChaj=document.getElementById('drumChaj');
+  const drumQuena=document.getElementById('drumQuena');
+
+  function hitDrum(btn,fn){
+    btn.classList.add('hit');
+    setTimeout(()=>btn.classList.remove('hit'),120);
+    fn();
+  }
+  drumBass.addEventListener('click',()=>hitDrum(drumBass,playDrumBass));
+  drumChaj.addEventListener('click',()=>hitDrum(drumChaj,playChajchas));
+  drumQuena.addEventListener('click',()=>hitDrum(drumQuena,()=>playQuenaNote(659.25,.3)));
+
+  // Secuencia de ritmo desafío
+  document.getElementById('drumPatternBtn').addEventListener('click',()=>{
+    const scoreEl=document.getElementById('drumScore');
+    scoreEl.textContent='Escucha el ritmo... 🎶';
+    let seq=[drumBass,drumChaj,drumBass,drumQuena];
+    seq.forEach((d,idx)=>{
+      setTimeout(()=>{
+        d.click();
+        if(idx===seq.length-1){
+          scoreEl.textContent='¡Ahora es tu turno de seguir la comparsa!';
+          unlockSticker('quena');
+        }
+      },(idx+1)*400);
+    });
+  });
+
+  // MINIJUEGO: TALLER DE MÁSCARAS
+  const maskModal=document.getElementById('maskModal');
+  function openMaskModal(){maskModal.classList.add('open');}
+  document.getElementById('closeMask').addEventListener('click',()=>maskModal.classList.remove('open'));
+
+  const maskBase=document.getElementById('maskBase');
+  const maskFeathers=document.getElementById('maskFeathers');
+  const maskMustache=document.getElementById('maskMustache');
+  const maskStage=document.getElementById('maskStage');
+
+  document.getElementById('optDiablo').addEventListener('click',()=>{
+    maskBase.setAttribute('fill','#e11d48');
+    setActiveTag('optDiablo');
+    beep(520,.05);
+  });
+  document.getElementById('optMoreno').addEventListener('click',()=>{
+    maskBase.setAttribute('fill','#10b981');
+    setActiveTag('optMoreno');
+    beep(580,.05);
+  });
+  document.getElementById('optUkuku').addEventListener('click',()=>{
+    maskBase.setAttribute('fill','#3b82f6');
+    setActiveTag('optUkuku');
+    beep(640,.05);
+  });
+  document.getElementById('optFeathers').addEventListener('click',()=>{
+    const show=maskFeathers.style.display==='none';
+    maskFeathers.style.display=show?'inline':'none';
+    document.getElementById('optFeathers').classList.toggle('selected',show);
+    beep(720,.05);
+  });
+  document.getElementById('optMustache').addEventListener('click',()=>{
+    const show=maskMustache.style.display==='none';
+    maskMustache.style.display=show?'inline':'none';
+    document.getElementById('optMustache').classList.toggle('selected',show);
+    beep(480,.05);
+  });
+
+  function setActiveTag(activeId){
+    ['optDiablo','optMoreno','optUkuku'].forEach(id=>{
+      document.getElementById(id).classList.toggle('selected',id===activeId);
+    });
+  }
+
+  document.getElementById('danceMaskBtn').addEventListener('click',()=>{
+    maskStage.classList.add('dancing');
+    confetti();
+    playChajchas();
+    playQuenaNote(784,.4);
+    unlockSticker('diablada');
+    showToast('🎭 ¡Tu máscara está bailando con el carnaval!');
+    setTimeout(()=>maskStage.classList.remove('dancing'),3500);
+  });
+
+  // MINIJUEGO: TRIVIA ANDINA
+  const triviaModal=document.getElementById('triviaModal');
+  const triviaQEl=document.getElementById('triviaQuestion');
+  const triviaOptsEl=document.getElementById('triviaOptions');
+  const triviaFeed=document.getElementById('triviaFeedback');
+  const questions=[
+    {q:'¿Qué significa el principio andino del "Ayni"?',options:['Ayuda mutua y solidaridad','Un baile con máscaras','Una montaña sagrada'],ans:0,fact:'¡Exacto! "Hoy por ti, mañana por mí".'},
+    {q:'¿Quién es la Pachamama en la cosmovisión andina?',options:['El dios del sol','La Madre Tierra protectora','Un río caudaloso'],ans:1,fact:'¡Muy bien! Es la Madre Tierra que nos alimenta.'},
+    {q:'¿Qué representa la Chakana en las fiestas andinas?',options:['Un instrumento de cuerda','El puente de unión y armonía','Un sombrero festivo'],ans:1,fact:'¡Excelente! Es la cruz escalonada del cosmos andino.'},
+    {q:'¿Qué significa la palabra quechua "Kusiy"?',options:['Alegría y felicidad','Miedo o susto','Caminar despacio'],ans:0,fact:'¡Sí! Alegría desbordante del carnaval.'}
+  ];
+  let curQ=0;
+
+  function openTriviaModal(){
+    triviaModal.classList.add('open');
+    curQ=Math.floor(Math.random()*questions.length);
+    renderQuestion();
+  }
+  document.getElementById('closeTrivia').addEventListener('click',()=>triviaModal.classList.remove('open'));
+
+  function renderQuestion(){
+    const item=questions[curQ];
+    triviaQEl.textContent=item.q;
+    triviaFeed.textContent='';
+    triviaOptsEl.innerHTML='';
+    item.options.forEach((opt,idx)=>{
+      const btn=document.createElement('button');
+      btn.className='pill';
+      btn.style.width='100%';btn.style.padding='10px';btn.style.justifyContent='center';
+      btn.textContent=opt;
+      btn.addEventListener('click',()=>{
+        if(idx===item.ans){
+          triviaFeed.style.color='#10b981';
+          triviaFeed.textContent='🎉 '+item.fact;
+          confetti();
+          beep(880,.15);
+          unlockSticker('chakana');
+        }else{
+          triviaFeed.style.color='#ef4444';
+          triviaFeed.textContent='Inténtalo de nuevo... ¡tú puedes!';
+          beep(280,.1);
+        }
+      });
+      triviaOptsEl.appendChild(btn);
+    });
+  }
+
+  // LANZADOR DE ESPUMA Y PINTURA VIRTUAL
+  const foamCanvas=document.getElementById('foamCanvas');
+  const foamBar=document.getElementById('foamBar');
+  const foamColor=document.getElementById('foamColor');
+  const fCtx=foamCanvas.getContext('2d');
+  let isFoaming=false;
+
+  function resizeFoam(){
+    foamCanvas.width=window.innerWidth;
+    foamCanvas.height=window.innerHeight;
+  }
+  window.addEventListener('resize',resizeFoam);
+
+  function startFoamFun(){
+    resizeFoam();
+    foamCanvas.style.display='block';
+    foamBar.style.display='flex';
+    fCtx.clearRect(0,0,foamCanvas.width,foamCanvas.height);
+    showToast('🫧 ¡Arrastra para rociar espuma!');
+    beep(640,.08);
+  }
+
+  function closeFoamFun(){
+    foamCanvas.style.display='none';
+    foamBar.style.display='none';
+  }
+  document.getElementById('closeFoamBtn').addEventListener('click',closeFoamFun);
+  document.getElementById('clearFoamBtn').addEventListener('click',()=>{
+    fCtx.clearRect(0,0,foamCanvas.width,foamCanvas.height);
+    beep(420,.05);
+  });
+
+  function sprayFoam(x,y){
+    const color=foamColor.value;
+    for(let i=0;i<6;i++){
+      const rx=x+(Math.random()-.5)*40;
+      const ry=y+(Math.random()-.5)*40;
+      const radius=8+Math.random()*16;
+      fCtx.beginPath();
+      fCtx.arc(rx,ry,radius,0,Math.PI*2);
+      fCtx.fillStyle=color;
+      fCtx.globalAlpha=0.75;
+      fCtx.fill();
+
+      fCtx.beginPath();
+      fCtx.arc(rx-radius*.3,ry-radius*.3,radius*.25,0,Math.PI*2);
+      fCtx.fillStyle='#ffffff';
+      fCtx.globalAlpha=0.9;
+      fCtx.fill();
+    }
+    beep(800+Math.random()*400,.03,'triangle');
+  }
+
+  foamCanvas.addEventListener('pointerdown',e=>{isFoaming=true;sprayFoam(e.clientX,e.clientY);});
+  foamCanvas.addEventListener('pointermove',e=>{if(isFoaming) sprayFoam(e.clientX,e.clientY);});
+  window.addEventListener('pointerup',()=>isFoaming=false);
+
+  // BOTÓN DE MÚSICA EN EL HUD
+  document.getElementById('musicBtn').addEventListener('click',toggleMusic);
+
+  // BOTÓN DE COMIENZO EN PORTADA
+  document.getElementById('start').addEventListener('click',()=>{
+    const btn=document.getElementById('start');
+    btn.classList.remove('jump');
+    void btn.offsetWidth;
+    btn.classList.add('jump');
+    beep(620,.1);
+    setTimeout(()=>{
+      document.getElementById('cover').style.display='none';
+      document.getElementById('aventura').classList.add('open');
+      show(0,false);
+      window.scrollTo({top:0,behavior:'smooth'});
+    },480);
+  });
+
+  // BOTÓN VOLVER A PORTADA
+  document.getElementById('backCover').addEventListener('click',()=>{
+    document.getElementById('aventura').classList.remove('open');
+    document.getElementById('cover').style.display='grid';
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+
+  // NAVEGACIÓN FLECHAS
+  document.getElementById('prev').addEventListener('click',()=>show(current-1));
+  document.getElementById('next').addEventListener('click',()=>show(current+1));
+
+  // LECTURA EN VOZ ALTA
+  document.getElementById('listen').addEventListener('click',()=>{
+    if('speechSynthesis' in window){
+      speechSynthesis.cancel();
+      const u=new SpeechSynthesisUtterance(scenes[current].dataset.text);
+      u.lang='es-ES';u.rate=.92;u.pitch=1.08;
+      speechSynthesis.speak(u);
+      showToast('🔊 Escuchando la narración…');
+    }else{
+      showToast('Tu navegador no soporta lectura de voz.');
+    }
+  });
+
+  // PANTALLA COMPLETA
+  document.getElementById('fullscreen').addEventListener('click',()=>{
+    if(!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+    else document.exitFullscreen?.();
+  });
+
+  // REINICIAR PROGRESO
+  document.getElementById('reset').addEventListener('click',()=>{
+    found.forEach(s=>s.clear());
+    unlockedStickers.clear();
+    discoveredClues.clear();
+    localStorage.removeItem('carnaval_stars');
+    localStorage.removeItem('carnaval_stickers');
+    localStorage.removeItem('carnaval_clues');
+    document.querySelectorAll('.badge').forEach(b=>b.classList.add('locked'));
+    renderStickers();
+    show(current,false);
+    showToast('↺ Progreso y estrellas reiniciadas');
+  });
+
+  // CERRAR MODAL GENÉRICO
+  document.getElementById('close').addEventListener('click',()=>document.getElementById('modal').classList.remove('open'));
+  document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')document.getElementById('modal').classList.remove('open');});
+
+  // NAVEGACIÓN POR TECLADO
+  document.addEventListener('keydown',e=>{
+    if(document.getElementById('aventura').classList.contains('open')){
+      if(e.key==='ArrowRight') show(current+1);
+      if(e.key==='ArrowLeft') show(current-1);
+      if(e.key==='l'||e.key==='L') toggleFlashlight();
+    }
+    if(e.key==='Escape'){
+      document.querySelectorAll('.modal').forEach(m=>m.classList.remove('open'));
+      closeFoamFun();
+      if(isFlashlightOn) toggleFlashlight();
+    }
+  });
+
+  // INICIO
+  renderStickers();
+  show(0,false);
 })();
 </script>
 </body>
