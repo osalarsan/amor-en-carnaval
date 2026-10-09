@@ -282,6 +282,30 @@ button:focus-visible{outline:4px solid var(--cyan);outline-offset:3px}
 .nav button:disabled{opacity:.25;cursor:not-allowed}
 .count{font-weight:1000;color:var(--purple);font-size:15px}
 
+/* TARJETA DE IDEA PRINCIPAL AL FINAL */
+.main-idea-card{
+  margin-top:16px;padding:22px 18px;border-radius:24px;
+  background:linear-gradient(135deg,#fffbf5 0%,#fbf4ff 50%,#f0f9ff 100%);
+  border:2px solid #ffd75e;box-shadow:0 14px 38px rgba(109,76,255,.12);
+  text-align:center;position:relative;overflow:hidden;
+  animation:fadeInCard .6s ease;
+}
+@keyframes fadeInCard{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.main-idea-badge{
+  display:inline-block;padding:6px 16px;border-radius:99px;
+  background:linear-gradient(90deg,#ff5f9e,#6d4cff);color:#fff;
+  font-size:11px;font-weight:1000;letter-spacing:.05em;margin-bottom:8px;
+}
+.main-idea-card h3{
+  margin:4px 0 10px;font-size:clamp(19px,2.5vw,25px);
+  color:var(--ink);font-family:Georgia,'Times New Roman',serif;font-weight:900;
+}
+.main-idea-text{
+  font-size:15px;line-height:1.65;color:#352e5b;margin:0 auto 14px;
+  max-width:720px;font-weight:600;
+}
+.main-idea-text strong{color:#d42668;font-weight:900}
+
 /* MODALES */
 .modal{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:16px;background:#211d3bcc;backdrop-filter:blur(10px)}
 .modal.open{display:grid}
@@ -400,6 +424,7 @@ button:focus-visible{outline:4px solid var(--cyan);outline-offset:3px}
       <button class="pill pill-bored" id="boredBtn" type="button">⚡ ¡Me aburrí!</button>
       <!-- BOTÓN LINTERNA SECRETA NOCTURNA -->
       <button class="pill pill-flashlight" id="flashlightBtn" type="button">🔦 Linterna: OFF</button>
+      <button class="pill" id="hudIdeaBtn" type="button" style="display:none;background:linear-gradient(135deg,#ff2a7a,#6d4cff);color:#fff;border:none">📜 Idea principal</button>
       <button class="pill" id="musicBtn" type="button">🎵 Música: OFF</button>
       <button class="pill" id="listen" type="button">🔊 Escuchar</button>
       <button class="pill" id="fullscreen" type="button">⛶ Pantalla completa</button>
@@ -708,13 +733,27 @@ button:focus-visible{outline:4px solid var(--cyan);outline-offset:3px}
                 <button class="word-chip" type="button" data-word="Munay: Amor verdadero que perdura."><strong>Munay</strong><small>Amor</small></button>
               </div>
             </div>
-            <div class="interaction">
+            <div class="interaction" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr))">
               <button class="action primary fact" type="button">💡 ¿Cómo termina?</button>
-              <button class="action word" type="button">📚 Aprender palabra</button>
+              <button class="action word" type="button">📚 Palabra andina</button>
               <button class="action magic" type="button">✨ Celebrar</button>
-              <button class="action fun foam-trigger" type="button">🎉 Fiesta de espuma</button>
+              <button class="action fun foam-trigger" type="button">🎉 Fiesta espuma</button>
+              <button class="action primary main-idea-trigger" type="button" style="background:linear-gradient(135deg,#ff2a7a,#6d4cff);color:#fff">📜 Idea principal</button>
             </div>
             <div class="message">¡Llegaste al final de la aventura! 🎉</div>
+
+            <!-- TARJETA DESTACADA: IDEA PRINCIPAL DE LA HISTORIETA -->
+            <div class="main-idea-card" id="mainIdeaCard">
+              <div class="main-idea-badge">💖 MENSAJE Y REFLEXIÓN FINAL</div>
+              <h3>Idea principal de la historieta «Amor en Carnaval»</h3>
+              <p class="main-idea-text">
+                La historieta nos enseña que el <strong>amor verdadero se basa en el respeto, la confianza, la libertad y la valentía de defender nuestros sentimientos</strong>. A través de la historia de Carlos y Visitación, aprendemos que <strong>nadie debe ser obligado a amar o casarse con alguien por dinero, poder o decisiones familiares</strong>.
+              </p>
+              <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+                <button class="pill" id="readIdeaVoiceBtn" type="button">🔊 Escuchar reflexión</button>
+                <button class="pill pill-bored" id="celebrateIdeaBtn" type="button">✨ Celebrar el mensaje</button>
+              </div>
+            </div>
           </div>
         </article>
       </div>
@@ -1325,6 +1364,8 @@ button:focus-visible{outline:4px solid var(--cyan);outline-offset:3px}
     document.querySelector('.hud-title').textContent='🧭 Página '+(current+1)+': '+scenes[current].dataset.title;
     document.getElementById('prev').disabled=current===0;
     document.getElementById('next').disabled=current===scenes.length-1;
+    const hudIdea=document.getElementById('hudIdeaBtn');
+    if(hudIdea) hudIdea.style.display=(current===scenes.length-1)?'inline-flex':'none';
     makeStars(scenes[current]);
     updateStars();
     if(scroll) document.getElementById('aventura').scrollIntoView({behavior:'smooth',block:'start'});
@@ -1415,6 +1456,41 @@ button:focus-visible{outline:4px solid var(--cyan);outline-offset:3px}
   document.querySelectorAll('.mask-trigger').forEach(b=>b.addEventListener('click',openMaskModal));
   document.querySelectorAll('.trivia-trigger').forEach(b=>b.addEventListener('click',openTriviaModal));
   document.querySelectorAll('.foam-trigger').forEach(b=>b.addEventListener('click',startFoamFun));
+
+  // IDEA PRINCIPAL DE LA HISTORIETA
+  const mainIdeaText="La historieta nos enseña que el amor verdadero se basa en el respeto, la confianza, la libertad y la valentía de defender nuestros sentimientos. A través de la historia de Carlos y Visitación, aprendemos que nadie debe ser obligado a amar o casarse con alguien por dinero, poder o decisiones familiares.";
+
+  function showMainIdea(){
+    const card=document.getElementById('mainIdeaCard');
+    if(card && current===scenes.length-1){
+      card.scrollIntoView({behavior:'smooth',block:'center'});
+    }else{
+      showModal('💖','Idea principal de «Amor en Carnaval»',mainIdeaText);
+    }
+    confetti();
+    playSecretChord();
+  }
+
+  document.querySelectorAll('.main-idea-trigger').forEach(b=>b.addEventListener('click',showMainIdea));
+  document.getElementById('hudIdeaBtn')?.addEventListener('click',showMainIdea);
+
+  document.getElementById('readIdeaVoiceBtn')?.addEventListener('click',()=>{
+    if('speechSynthesis' in window){
+      speechSynthesis.cancel();
+      const u=new SpeechSynthesisUtterance('Idea principal de la historieta Amor en Carnaval: '+mainIdeaText);
+      u.lang='es-ES';u.rate=.93;u.pitch=1.05;
+      speechSynthesis.speak(u);
+      showToast('🔊 Escuchando la reflexión…');
+    }else{
+      showToast('Tu navegador no soporta lectura de voz.');
+    }
+  });
+
+  document.getElementById('celebrateIdeaBtn')?.addEventListener('click',()=>{
+    confetti();
+    playSecretChord();
+    showToast('🎉 ¡El amor verdadero triunfa en libertad y respeto!');
+  });
 
   // BOTÓN SALVAVIDAS ANTI-ABURRIMIENTO
   const boredModal=document.getElementById('boredModal');
